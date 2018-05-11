@@ -20,7 +20,7 @@ class greedy_approach:
         return g if k == 1 else self.recur_max_pair_up(g[0]-1,c,k-1,sum(g)-c)+g
 
 if __name__ == '__main__':
-    sp =StablePairsDiv1()
+    sp =greedy_approach()
     result =sp.recur_max_pair_up(12, 7, 3, None)
     print(result)
 
