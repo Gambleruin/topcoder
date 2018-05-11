@@ -21,6 +21,6 @@ class greedy_approach:
 
 if __name__ == '__main__':
     sp =StablePairsDiv1()
-    result =sp.findMaxStablePairs(12, 7, 3, None)
+    result =sp.recur_max_pair_up(12, 7, 3, None)
     print(result)
 
