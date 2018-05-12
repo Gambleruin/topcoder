@@ -10,7 +10,7 @@ class greedy_approach:
         else:
             return [s -n, n]
  
-    def recur_max_pair_up(self,n,c,k,s=None):
+    def recur_max_pair_up(n,c,k,s=None):
         if (n ==1):
             return []
         if s is None: 
@@ -21,12 +21,12 @@ class greedy_approach:
         return g if k == 1 else self.recur_max_pair_up(g[0]-1,c,k-1,sum(g)-c)+g
 
 class dp_approach:
-    def __init__(n, c, k):
+    def __init__(self, n, c, k):
         self.n =n
         self.c =c
         self.k =k 
-        self.dp_table = np.zeros((k+1,n+1), dtype=bool)
-        self.prev =np.zeros((k+1, n+1))
+        self.dp_table = np.zeros((k+1, n+1, 2*self.n+1), dtype=bool)
+        self.prev =np.zeros((k+1, n+1, 2*self.n+1))
 
     def trace(c, inx, j, is_):
         ans =np.zeros((inx*2));
@@ -37,27 +37,28 @@ class dp_approach:
             w =self.prev[inx][j][is_]
             inx =inx -1;
             j =w
+        print(ans)
         return ans
     
-    def dy_pair_up():
+    def dy_pair_up(self):
         inx =0
-        ans =np.zeros((n*2));
-        if(self.k >=self.n/2):
-            return ans
-
-        for i in range(k+1):
+        #ans =np.zeros((self.n*2));
+        #if(self.k >=self.n/2):
+        #    print('I was here')
+        #    return ans
+        for i in range(self.k+1):
             for j in range(self.n):
-                self.dp_table[i][j] =np.zeros((2*self.n+1), dtype =bool)
-                self.prev[i][j] =np.zeros((2*self.n+1))
-                for is_ in range(2*n):
-                    self.dp[i][j][is_] =False
-        
-        for i in range(k):
+                for is_ in range(2*self.n):
+                    self.dp_table[i][j][is_] =False
+        # solve
+        for i in range(self.k):
+
             j =2
             for j in range(self.n):
-                for is_ in range(2*n):
+                for is_ in range(2*self.n):
                     x =is_+(i-1)*self.c-j;
                     if(x >=j):
+                        print('I was here',x,j, is_)
                         break
                     if(x <=1):
                         continue;
@@ -69,14 +70,17 @@ class dp_approach:
                                 self.dp_table[i][j][is_] =True
                                 self.prev[i][j][is_] =w
                                 inx =is_
+                                print('I waswas here')
                             break
 
-                if(i ==k and self.dp_table[i][j][inx]):
+                if(i ==self.k and self.dp_table[i][j][inx]):
                     return trace(self.c, i, j, inx)
 
 if __name__ == '__main__':
     sp =greedy_approach()
+    dp =dp_approach(4,4,2)
+    dp.dy_pair_up()
 
-    result =sp.recur_max_pair_up(12, 7, 3, None)
-    print(result)
+    # result =sp.recur_max_pair_up(12, 7, 3, None)
+    
 
