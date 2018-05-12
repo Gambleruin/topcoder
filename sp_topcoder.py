@@ -67,7 +67,7 @@ class dp_approach:
                             self.prev[i][y][is_] =w
                             break
 
-                if(i ==k && self.dp[i][y][is_]):
+                if(i ==k and self.dp[i][y][is_]):
                     return init(self.c, i, y, is_)
 
 if __name__ == '__main__':
