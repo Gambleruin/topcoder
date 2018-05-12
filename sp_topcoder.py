@@ -35,7 +35,7 @@ class dp_approach:
             ans[inx*2 -2] =x
             ans[inx*2 -1] =y
             int w =prev[inx][y][is_]
-            inx--;
+            inx =inx -1;
             y =w
         return ans
     
