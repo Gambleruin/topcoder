@@ -25,8 +25,8 @@ class dp_approach:
         self.n =n
         self.c =c
         self.k =k 
-        self.dp = np.zeros((k,n,2*n), dtype=bool)
-        self.prev =np.zeros((k, n, 2*n))
+        self.dp = np.zeros((k+1,n+1,2*n), dtype=bool)
+        self.prev =np.zeros((k+1, n+1, 2*n))
 
     def init(c, inx, y, is_):
         ans =np.zeros((inx*2));
@@ -34,21 +34,21 @@ class dp_approach:
             x =is_+(inx -1)*c -y
             ans[inx*2 -2] =x
             ans[inx*2 -1] =y
-            int w =prev[inx][y][is_]
+            int w =self.prev[inx][y][is_]
             inx =inx -1;
             y =w
         return ans
     
     def dy_pair_up(is_):
-        ans =np.zeros((i*2));
-        dp = np.zeros((k+1,n,2*n), dtype=bool)
-        prev = np.zeros((k+1,n,2*n))
+        ans =np.zeros((n*2));
+        if(self.k >=self.n/2):
+            return ans
 
-        for i in range(k):
-            dp[i] =np.zeros((n+1, 2*n), dtype=bool)
-            prev[i] =np.zeros((n+1, 2*n))
-            for is_ in range(2*n):
-                self.dp[i][y][is_] =False
+        for i in range(k+1):
+            for j in range(self.n):
+                self.dp[i][j] =np.zeros((2*self.n+1), dtype =bool)
+                for is_ in range(2*n):
+                    self.dp[i][y][is_] =False
         
         for i in range(k):
             for j =2 in range(self.n):
