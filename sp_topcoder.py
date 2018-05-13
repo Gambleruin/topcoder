@@ -29,11 +29,8 @@ class dp_approach:
         self.sum_table =np.zeros((k, n, 2*self.n))
         t_sum =0
         min_flag =0
-        min_sum =0
+        min_sum =3
         max_sum =0
-        for i in range(2*self.n):
-            if(min_sum<3):
-                min_sum =2*i+1
             for j in range(self.k): 
                 x =0
                 y =0
@@ -47,23 +44,22 @@ class dp_approach:
                         y =y+1
                     dp_table[x][y] =True
                     sum_table[x][y] =min_sum
+                  
+                    min_flag =y
+                    min_sum =min_sum +self.c
+                else
+                    break
 
-                    if(j ==self.k ):
-                        continue
-                    else
-                        min_flag =y
-                        min_sum =min_sum +self.c
+                for i in range(self.n):
+                    for j in range(self.n):
+                        if(dp_table[i][j]):
+                            min_sum =sum_table[i][j]
+                            t_sum =t_sum+min_sum
 
-            for i in range(self.n):
-                for j in range(self.n):
-                    if(dp_table[i][j]):
-                        min_sum =sum_table[i][j]
-                        t_sum =t_sum+min_sum
-
-            if(t_sum >max_sum):
-                max_sum =t_sum
-            else
-                continue
+                if(t_sum >max_sum):
+                    max_sum =t_sum
+                else
+                    continue
                         
         return max_sum
 
