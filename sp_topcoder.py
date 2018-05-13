@@ -25,41 +25,45 @@ class dp_approach:
         self.n =n
         self.c =c
         self.k =k 
-        self.dp_table = np.zeros((k, n, 2*self.n), dtype=bool)
-        self.sum_table =np.zeros((k, n, 2*self.n))
+        
         t_sum =0
-        min_flag =0
+        min_x =0
         min_sum =3
         max_sum =0
+        while(min_sum <=2*self.n):
+            dp_table = np.zeros((self.n, self.n), dtype=bool)
+            sum_table =np.zeros((self.n, self.n))
             for j in range(self.k): 
                 x =0
                 y =0
-                if (min_sum <=2*self.n):
-                    x =min_sum/2
-                    y =min_sum -x
-                    if(x <= min_flag):
+                
+                x =min_sum/2
+                y =min_sum -x
+                while(x ==y):
+                    x =x-1
+                    y =y+1
+                    if(x <=min_x):
                         break
-                    while(x ==y):
-                        x =x-1
-                        y =y+1
                     dp_table[x][y] =True
                     sum_table[x][y] =min_sum
                   
-                    min_flag =y
-                    min_sum =min_sum +self.c
-                else
+                    min_x =y
+                if(j ==self.k)
                     break
-
-                for i in range(self.n):
-                    for j in range(self.n):
-                        if(dp_table[i][j]):
-                            min_sum =sum_table[i][j]
-                            t_sum =t_sum+min_sum
-
-                if(t_sum >max_sum):
-                    max_sum =t_sum
                 else
-                    continue
+                    min_sum =min_sum +self.c
+                    
+            for i in range(self.n):
+                for j in range(self.n):
+                    if(dp_table[i][j]):
+                        min_sum =sum_table[i][j]
+                        t_sum =t_sum+min_sum
+
+            if(t_sum >max_sum):
+                max_sum =t_sum
+
+            min_x =0
+            min_sum =min_sum+1
                         
         return max_sum
 
