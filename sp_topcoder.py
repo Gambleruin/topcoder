@@ -40,6 +40,8 @@ class dp_approach:
                 if (min_sum <=2*self.n):
                     x =min_sum/2
                     y =min_sum -x
+                    if(x <= min_flag):
+                        break
                     while(x ==y):
                         x =x-1
                         y =y+1
@@ -51,7 +53,6 @@ class dp_approach:
                     else
                         min_flag =y
                         min_sum =min_sum +self.c
-
 
             for i in range(self.n):
                 for j in range(self.n):
