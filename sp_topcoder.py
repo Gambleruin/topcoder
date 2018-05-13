@@ -31,7 +31,6 @@ class dp_approach:
         min_sum =0
         max_sum =0
         for i in range(2*self.n):
-            max_sum =max_sum +min_sum
             if(min_sum<3):
                 min_sum =2*i+1
             for j in range(self.k): 
@@ -44,47 +43,24 @@ class dp_approach:
                         x =x-1
                         y =y+1
                     dp_table[x][y] =True
-                    t_sum =t_sum+min_sum
+                    sum_table[x][y] =min_sum
+                    if(j ==self.k ):
+                        continue
+                    else
+                        min_sum =min_sum +self.c
 
-                if(dp_table[x][y]):
-                    sum_table[i][j] =min_sum
-                elif(t_sum >max_sum and j ==self.k):
-                    max_sum =t_sum
-                    break
+            for i in range(self.n):
+                for j in range(self.n):
+                    if(dp_table[i][j]):
+                        min_sum =sum_table[i][j]
+                        t_sum =t_sum+min_sum
 
-            min_sum =min_sum +self.c
-
-
-        while(init_s+1 <=2*self.n) : 
-            init_s =init_s+1
-            p_sum =init_s
-            for i in range(self.k): 
-                for s in range(p_sum, 2*self.n):     
-                    x =p_sum/2
-                    y =p_sum -x
-                    while(x ==y):
-                        x =x-1
-                        y =y+1
-                self.dp_table[i][s] =True
-                self.sum_table[x][y] =p_sum
-                p_sum =s+self.c
-                
-
-
-
-        if(dp_table[i][s])
-            max_sum =t_sum
-            continue
-        if(max_sum <t_sum):
-            self.dp_table[i][p_sum] =False
-
-
-
-        max_sum =t_sum
-
-        return (self.dp_table, self.sum_table)
-
-
+            if(t_sum >max_sum):
+                max_sum =t_sum
+            else
+                continue
+                        
+        return max_sum
 
 if __name__ == '__main__':
     sp =greedy_approach()
