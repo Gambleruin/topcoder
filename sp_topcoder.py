@@ -74,12 +74,11 @@ class dp_approach:
                         val =sum_table[i][j]
                         t_sum =t_sum+val
                         
-
             if(t_sum >max_sum):
                 max_sum =t_sum
 
             print(max_sum)
-            if(min_sum >9):
+            if(min_sum >2*self.n-1):
                 print('I was here', min_sum)
                 break
             
@@ -92,7 +91,7 @@ if __name__ == '__main__':
     sp =greedy_approach()
     dp =dp_approach(5,4,2)
     re =dp.solve()
-
+    print(re)
     # result =sp.recur_max_pair_up(12, 7, 3, None)
     
 
