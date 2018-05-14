@@ -39,7 +39,7 @@ class dp_approach:
             pair_table = np.zeros((self.n+1, self.n+1))
             sum_table =np.zeros((self.n+1, self.n+1))
             min_sum =init_sum
-            # print(init_sum)
+            
             j =1
             while j <=self.k:
                 x =0
@@ -54,25 +54,21 @@ class dp_approach:
                     y+=1
                 if(x <=min_x):
                     break
-                # print('\n\n\n\n\n\n\n', min_sum, x, y, '\n\n\n\n\n\n\n')
+
                 pair_table[x][y] =1
                 sum_table[x][y] =min_sum
                   
                 min_x =y
                 
                 if(j ==self.k):
-                    # print('I was truly here')
+                    print('I was truly here')
                     break
                 else:
                     min_sum =min_sum +self.c
                 j +=1
 
-
-                    
-
-            # print('lalalalalalalalalalalalala')
-            for i in range(self.n):
-                for j in range(self.n):
+            for i in range(self.n+1):
+                for j in range(self.n+1):
                     if(pair_table[i][j]):
                         print(i, j)
                         val =sum_table[i][j]
@@ -83,16 +79,13 @@ class dp_approach:
                 max_sum =t_sum
 
             print(max_sum)
-            print(min_sum, '\n\n\n\n\n\n')
             if(min_sum >9):
-                print('I was here')
+                print('I was here', min_sum)
                 break
             
             min_x =0
             t_sum =0
-            init_sum =init_sum+1
-            # print(min_sum)
-                        
+            init_sum =init_sum+1                        
         return max_sum
 
 if __name__ == '__main__':
