@@ -29,6 +29,7 @@ class dp_approach:
 
 
     def solve(self):
+
         t_sum =0
         min_x =0
         init_sum =3
@@ -38,7 +39,9 @@ class dp_approach:
             pair_table = np.zeros((self.n+1, self.n+1))
             sum_table =np.zeros((self.n+1, self.n+1))
             min_sum =init_sum
-            for j in range(1, self.k): 
+            # print(init_sum)
+            j =1
+            while j <=self.k:
                 x =0
                 y =0
                 
@@ -47,38 +50,46 @@ class dp_approach:
                 y =min_sum -x
                 y =int(y)
                 while(x ==y):
-                    x =x-1
-                    y =y+1
+                    x-=1
+                    y+=1
                 if(x <=min_x):
                     break
-                print('\n\n\n\n\n\n\n', min_sum, x, y, '\n\n\n\n\n\n\n')
+                # print('\n\n\n\n\n\n\n', min_sum, x, y, '\n\n\n\n\n\n\n')
                 pair_table[x][y] =1
                 sum_table[x][y] =min_sum
                   
                 min_x =y
-                print(self.k)
+                
                 if(j ==self.k):
+                    # print('I was truly here')
                     break
                 else:
                     min_sum =min_sum +self.c
+                j +=1
+
+
                     
+
+            # print('lalalalalalalalalalalalala')
             for i in range(self.n):
                 for j in range(self.n):
                     if(pair_table[i][j]):
+                        print(i, j)
                         val =sum_table[i][j]
                         t_sum =t_sum+val
-                        # print(t_sum)
+                        
 
             if(t_sum >max_sum):
                 max_sum =t_sum
 
-            print(max_sum, min_sum)
-
-            if(min_sum >10):
+            print(max_sum)
+            print(min_sum, '\n\n\n\n\n\n')
+            if(min_sum >9):
                 print('I was here')
                 break
             
             min_x =0
+            t_sum =0
             init_sum =init_sum+1
             # print(min_sum)
                         
