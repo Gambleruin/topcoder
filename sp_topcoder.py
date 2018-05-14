@@ -26,51 +26,68 @@ class dp_approach:
         self.c =c
         self.k =k 
         
+
+
+    def solve(self):
         t_sum =0
         min_x =0
+        init_sum =3
         min_sum =3
         max_sum =0
-        while(min_sum <=2*self.n):
-            dp_table = np.zeros((self.n, self.n), dtype=bool)
-            sum_table =np.zeros((self.n, self.n))
-            for j in range(self.k): 
+        while(init_sum <=2*self.n):
+            pair_table = np.zeros((self.n+1, self.n+1))
+            sum_table =np.zeros((self.n+1, self.n+1))
+            min_sum =init_sum
+            for j in range(1, self.k): 
                 x =0
                 y =0
                 
                 x =min_sum/2
+                x =int(x)
                 y =min_sum -x
+                y =int(y)
                 while(x ==y):
                     x =x-1
                     y =y+1
-                    if(x <=min_x):
-                        break
-                    dp_table[x][y] =True
-                    sum_table[x][y] =min_sum
-                  
-                    min_x =y
-                if(j ==self.k)
+                if(x <=min_x):
                     break
-                else
+                print('\n\n\n\n\n\n\n', min_sum, x, y, '\n\n\n\n\n\n\n')
+                pair_table[x][y] =1
+                sum_table[x][y] =min_sum
+                  
+                min_x =y
+                print(self.k)
+                if(j ==self.k):
+                    break
+                else:
                     min_sum =min_sum +self.c
                     
             for i in range(self.n):
                 for j in range(self.n):
-                    if(dp_table[i][j]):
-                        min_sum =sum_table[i][j]
-                        t_sum =t_sum+min_sum
+                    if(pair_table[i][j]):
+                        val =sum_table[i][j]
+                        t_sum =t_sum+val
+                        # print(t_sum)
 
             if(t_sum >max_sum):
                 max_sum =t_sum
 
+            print(max_sum, min_sum)
+
+            if(min_sum >10):
+                print('I was here')
+                break
+            
             min_x =0
-            min_sum =min_sum+1
+            init_sum =init_sum+1
+            # print(min_sum)
                         
         return max_sum
 
 if __name__ == '__main__':
     sp =greedy_approach()
     dp =dp_approach(5,4,2)
-    dp.dy_pair_up()
+    re =dp.solve()
 
     # result =sp.recur_max_pair_up(12, 7, 3, None)
     
