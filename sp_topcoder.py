@@ -10,7 +10,7 @@ class greedy_approach:
         else:
             return [s -n, n]
  
-    def recur_max_pair_up(n,c,k,s=None):
+    def recur_max_pair_up(self, n,c,k,s=None):
         if (n ==1):
             return []
         if s is None: 
@@ -26,9 +26,9 @@ class dp_approach:
         self.c =c
         self.k =k 
         
-
-
     def solve(self):
+        if(self.n ==1):
+            return 0
 
         t_sum =0
         min_x =0
@@ -54,7 +54,7 @@ class dp_approach:
                     y+=1
                 if(x <=min_x):
                     break
-
+                print(x, y)
                 pair_table[x][y] =1
                 sum_table[x][y] =min_sum
                   
@@ -70,15 +70,15 @@ class dp_approach:
             for i in range(self.n+1):
                 for j in range(self.n+1):
                     if(pair_table[i][j]):
-                        print(i, j)
+                        # print(i, j)
                         val =sum_table[i][j]
                         t_sum =t_sum+val
                         
             if(t_sum >max_sum):
                 max_sum =t_sum
 
-            print(max_sum)
-            if(min_sum >2*self.n-1):
+            print(max_sum, min_sum)
+            if(min_sum >=2*self.n-1):
                 print('I was here', min_sum)
                 break
             
@@ -89,9 +89,10 @@ class dp_approach:
 
 if __name__ == '__main__':
     sp =greedy_approach()
-    dp =dp_approach(5,4,2)
+    dp =dp_approach(10,6,3)
     re =dp.solve()
     print(re)
     # result =sp.recur_max_pair_up(12, 7, 3, None)
+    # print(result)
     
 
