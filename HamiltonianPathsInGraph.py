@@ -55,12 +55,15 @@ class HamiltonianPathsInGraph():
 			for j in range(n):
 				if(self.check_i_th_bit_is_set(i, j)):
 					for k in range(n):
-						if(self.check_i_th_bit_is_set(i, k) and self.adj[k][j] and k!=j 
-							and self.dp[k][self.check_subset_path(i, j)] ):
+						bit_set =int(self.check_i_th_bit_is_set(i, k))
+						path_set =int(self.check_subset_path(i, j))
+						print(path_set, '\n\n\n\n\n\n\n\n\n\n\n')
+						if((bit_set and self.adj[k][j]) and (k!=j 
+							and self.dp[k][path_set]) ):
 							self.dp[j][i] =True
 							break
 
-		print(self.dp)
+		# print(self.dp)
 		for i in range(n):
 			if (self.dp[i][(1<<n) -1]):
 				return True
