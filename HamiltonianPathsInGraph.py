@@ -11,10 +11,12 @@ In the mathematical field of graph theory, a
 # HamiltonianPathsInGraph
 # sources from:
 # https://community.topcoder.com/stat?c=problem_solution&rd=17140&rm=&cr=40741634&pm=14881
+import numpy as np
 class HamiltonianPathsInGraph():
 	def __init__(self, adj, MAXN):
 		self.dp =np.zeros((MAXN, 1<<MAXN))
 		self.adj =adj
+		self.n =MAXN
 	# brute force
 	def ham_bf(self, s):
 		if len(s) ==0:
@@ -45,19 +47,20 @@ class HamiltonianPathsInGraph():
 			return False
 
 	# dynamic programming
-	def ham_dp(self, s, adj, n):
+	def ham_dp_solve(self, n):
 		for i in range(n):
 			self.dp[i][1<<i] =True
 
 		for i in range(1<<n):
 			for j in range(n):
-				if(check_i_th_bit_is_set(i, j)):
+				if(self.check_i_th_bit_is_set(i, j)):
 					for k in range(n):
-						if(check_i_th_bit_is_set(i, k) and self.adj[k][j] and k!=j and dp[k][check_subset_path(i, j)] ):
+						if(self.check_i_th_bit_is_set(i, k) and self.adj[k][j] and k!=j 
+							and self.dp[k][self.check_subset_path(i, j)] ):
 							self.dp[j][i] =True
 							break
 
-	def solve(self, n):
+		print(self.dp)
 		for i in range(n):
 			if (self.dp[i][(1<<n) -1]):
 				return True
@@ -68,16 +71,17 @@ class HamiltonianPathsInGraph():
 		return self.ham_bf(set(range(len(X))))
 
 	def dynamic_programming_findPath(self):
-		return solve(n)
-
+		return self.ham_dp_solve(self.n)
 
 if __name__ == '__main__':
 	x =[['.','+'],
 		['-','.']]
+	adj =[[0, 1],
+			[1, 0]]
 	MAXN =0
-	ham =HamiltonianPathsInGraph(x, )
-	Path =ham.findPath(x)
-	dp_result =ham.dynamic_programming_findPath()
-	print(Path)
+	ham =HamiltonianPathsInGraph(adj, 2)
+	Path_Existence =ham.dynamic_programming_findPath()
+	
+	print(Path_Existence)
 
 
