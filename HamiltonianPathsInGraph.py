@@ -81,6 +81,7 @@ if __name__ == '__main__':
 		['-','.']]
 	adj =[[0, 1],
 			[1, 0]]
+	# noting that the algorithm is invariant at directed/undirected graph
 	MAXN =0
 	ham =HamiltonianPathsInGraph(adj, 2)
 	Path_Existence =ham.dynamic_programming_findPath()
