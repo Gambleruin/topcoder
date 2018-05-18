@@ -67,13 +67,17 @@ class HamiltonianPathsInGraph():
 		self.X =X
 		return self.ham_bf(set(range(len(X))))
 
-	def dynamic_programming_findPath(self, X):
+	def dynamic_programming_findPath(self):
+		return solve(n)
+
 
 if __name__ == '__main__':
 	x =[['.','+'],
 		['-','.']]
-	ham =HamiltonianPathsInGraph()
+	MAXN =0
+	ham =HamiltonianPathsInGraph(x, )
 	Path =ham.findPath(x)
+	dp_result =ham.dynamic_programming_findPath()
 	print(Path)
 
 
