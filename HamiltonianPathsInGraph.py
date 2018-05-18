@@ -57,13 +57,13 @@ class HamiltonianPathsInGraph():
 					for k in range(n):
 						bit_set =int(self.check_i_th_bit_is_set(i, k))
 						path_set =int(self.check_subset_path(i, j))
-						print(path_set, '\n\n\n\n\n\n\n\n\n\n\n')
+						# print(path_set, '\n\n\n\n\n\n\n\n\n\n\n')
 						if((bit_set and self.adj[k][j]) and (k!=j 
 							and self.dp[k][path_set]) ):
 							self.dp[j][i] =True
 							break
 
-		# print(self.dp)
+		print(self.dp)
 		for i in range(n):
 			if (self.dp[i][(1<<n) -1]):
 				return True
@@ -81,8 +81,7 @@ if __name__ == '__main__':
 		['-','.']]
 	adj =[[0, 1],
 			[1, 0]]
-	# noting that the algorithm is invariant at directed/undirected graph
-	MAXN =0
+
 	ham =HamiltonianPathsInGraph(adj, 2)
 	Path_Existence =ham.dynamic_programming_findPath()
 	
