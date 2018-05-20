@@ -45,6 +45,8 @@ class HamiltonianPathsInGraph():
 		those steps takes O(n) time (O(n) to classify the previous 
 		nodes as red or blue, and O(n) time to insert our new node 
 		into this list).
+
+		The implementation is quite brilliant 
 	'''
 	def inductive_approach(self, n):
 		start =0
@@ -52,18 +54,20 @@ class HamiltonianPathsInGraph():
 		left =np.zero((128)) 
 		right =np.zero((128))
 		solution =np.zero((n))
-		if len(s) ==0:
+		'''
+		if len(n) ==0:
 			return []
+		'''
 
 		for i in range(n):
-			if self.X[i][start] =='+':
+			if self.adj[i][start] =='+':
 				left[start] =i
 				right[i] =start
 				left[i] =-1
 				start =i
 				continue
 
-			if self.X[end][i] =='+':
+			if self.adj[end][i] =='+':
 				right[end] =i
 				left[i] =end
 				right[i] =-1
@@ -71,7 +75,7 @@ class HamiltonianPathsInGraph():
 				continue
 
 			int j =start
-			while self.X[j][i] == '+':
+			while self.adj[j][i] == '+':
 				j =right[j]
 			k =left[j]
 			right[k] =i, left[i] =k
@@ -146,10 +150,13 @@ class HamiltonianPathsInGraph():
 if __name__ == '__main__':
 	x =[['.','+'],
 		['-','.']]
+	'''
 	adj =[[0, 1],
 			[1, 0]]
+	'''
 
-	# ham =HamiltonianPathsInGraph(adj, 2)
+	ham =HamiltonianPathsInGraph(x, 2)
+	Path =inductive_approach_findPath()
 	# Path_Existence =ham.dynamic_programming_findPath()
 
 	
