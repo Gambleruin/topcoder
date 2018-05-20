@@ -1,6 +1,9 @@
 
 '''
-SRM 733
+SRM 733 
+(this is only for programming practise as all implementations are adapted from 
+other people, I do not implement them originally )
+
 In the mathematical field of graph theory, a
  Hamiltonian path (or traceable path) is a 
  path in an undirected or directed graph that visits each vertex exactly once.
@@ -51,23 +54,57 @@ class HamiltonianPathsInGraph():
 		solution =np.zero((n))
 		if len(s) ==0:
 			return []
+
 		for i in range(n):
 			if self.X[i][start] =='+':
+				left[start] =i
+				right[i] =start
+				left[i] =-1
+				start =i
+				continue
 
+			if self.X[end][i] =='+':
+				right[end] =i
+				left[i] =end
+				right[i] =-1
+				end =i
+				continue
 
+			int j =start
+			while self.X[j][i] == '+':
+				j =right[j]
+			k =left[j]
+			right[k] =i, left[i] =k
+			# ..
+			left[j] =i, right[i] =j
 
-	# this is using dynamic programming
+		# getting the final solution
+		x =start, idx =0
+		while x !=-1:
+			ans[idx] =x
+			idx++
+			x =right[x]
+
+		return ans
+
+	'''
+
+		the author of this blog claimed such a hamilton path must exist, 
+		however, it is not true for any graph, if a graph does not have a
+		hamilton path, the algorithms above would instantly fail, thus we 
+		can instead use dynamic programming
+	'''
 	# resources from:
 	# https://www.hackerearth.com/practice/algorithms/graphs/hamiltonian-path/tutorial/
 	# https://www.hackerearth.com/practice/notes/bit-manipulation/
 	def check_i_th_bit_is_set(self, i, j):
-		if(i&(1<<j) ):
+		if i&(1<<j) :
 			return True
 		else:
 			return False
 
 	def check_subset_path(self, i, j):
-		if(i^(1<<j)):
+		if i^(1<<j):
 			return True
 		else:
 			return False
@@ -88,9 +125,8 @@ class HamiltonianPathsInGraph():
 							self.dp[j][i] =True
 							break
 
-		print(self.dp)
 		for i in range(n):
-			if (self.dp[i][(1<<n) -1]):
+			if self.dp[i][(1<<n) -1]:
 				return True
 		return False
 
@@ -101,7 +137,8 @@ class HamiltonianPathsInGraph():
 	def dynamic_programming_findPath(self):
 		return self.dp_solve(self.n)
 
-	def inductive_approach_findPath(self, X):
+	def inductive_approach_findPath(self):
+		return inductive_approach(self.n)
 
 
 
@@ -112,9 +149,9 @@ if __name__ == '__main__':
 	adj =[[0, 1],
 			[1, 0]]
 
-	ham =HamiltonianPathsInGraph(adj, 2)
-	Path_Existence =ham.dynamic_programming_findPath()
+	# ham =HamiltonianPathsInGraph(adj, 2)
+	# Path_Existence =ham.dynamic_programming_findPath()
+
 	
-	# print(Path_Existence)
 
 
