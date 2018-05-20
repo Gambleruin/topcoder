@@ -7,6 +7,7 @@ In the mathematical field of graph theory, a
 
  * every tournament contains at least one Hamiltonian path *
  * http://www.math.toronto.edu/gscott/sept20_2016.pdf *	
+ * http://codeforces.com/blog/entry/43256?mobile=true&locale=en*
 '''
 # HamiltonianPathsInGraph
 # sources from:
@@ -69,12 +70,27 @@ class HamiltonianPathsInGraph():
 				return True
 		return False
 
+	# using induction but without recursion
+	# resources from :
+	# https://www.topcoder.com/blog/single-round-match-733-editorials/
+	'''
+		To implement this, we can follow the steps in our induction 
+		above. There are n times where we add nodes, and each of 
+		those steps takes O(n) time (O(n) to classify the previous 
+		nodes as red or blue, and O(n) time to insert our new node 
+		into this list).
+	'''
+	def inductive_approach(self):
+		
+
 	def brute_force_findPath(self, X):
 		self.X =X
 		return self.ham_bf(set(range(len(X))))
 
 	def dynamic_programming_findPath(self):
 		return self.ham_dp_solve(self.n)
+
+
 
 if __name__ == '__main__':
 	x =[['.','+'],
