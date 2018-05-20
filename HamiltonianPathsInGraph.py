@@ -82,7 +82,7 @@ class HamiltonianPathsInGraph():
 		x =start, idx =0
 		while x !=-1:
 			ans[idx] =x
-			idx++
+			idx+=1
 			x =right[x]
 
 		return ans
