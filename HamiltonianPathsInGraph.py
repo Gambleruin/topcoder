@@ -66,7 +66,6 @@ class HamiltonianPathsInGraph():
 		for i in range(n):
 			if self.adj[i][start] =='+':
 				left[start] =int(i)
-				# print('\n\n\n\n\n\n\n\n\n\n\n\n\n',type(i))
 				right[i] =start
 				left[i] =-1
 				start =i
@@ -74,7 +73,6 @@ class HamiltonianPathsInGraph():
 
 			if self.adj[end][i] =='+':
 				right[end] =int(i)
-				# print('\n\n\n\n\n\n\n\n\n\n\n\n\n',type(i))
 				left[i] =end
 				right[i] =-1
 				end =i
@@ -82,11 +80,8 @@ class HamiltonianPathsInGraph():
 
 			j =start
 			while self.adj[j][i] == '+':
-				print('wo cao ni ma bi')
 				j =right[j]
-			# print(type(left[0]), type(right[0]))
 			k =left[j]
-			print('wo cao ni ma\n\n\n\n\n\n\n\n\n\n\n\n\n',right[0],'\n\n')
 			right[k] =i
 			left[i] =k
 			# ..
@@ -96,17 +91,18 @@ class HamiltonianPathsInGraph():
 		# getting the final solution
 		x =start
 		idx =0
-		while x !=-1:
+		# index off by one error
+		while x !=-1 and idx <=n-1:
+			print(x)
 			ans[idx] =x
 			idx+=1
 			x =right[x]
 
 		return ans
-
 	'''
 
 		the author of this blog claimed such a hamilton path must exist, 
-		however, it is not true for any graph, if a graph does not have a
+		however, it is not true for all graphs, if a graph does not have a
 		hamilton path, the algorithms above would instantly fail, thus we 
 		can instead use dynamic programming
 	'''
@@ -156,18 +152,27 @@ class HamiltonianPathsInGraph():
 	def inductive_approach_findPath(self):
 		return self.inductive_approach(self.n)
 
-
-
-
 if __name__ == '__main__':
-	x =[['.','+'],
-		['-','.']]
+	x =[['.','-','-','+'],
+		['+','.','+','-'],
+		['+','-','.','-'],
+		['-','+','+','.']]
 	'''
+	this is for dynamic programming testing
 	adj =[[0, 1],
 			[1, 0]]
 	'''
 
-	ham =HamiltonianPathsInGraph(x, 2)
+	'''
+	3
+	1
+	2
+	0
+	[3 1 2 0]
+	'''
+	# currently running the phrase for inductive approach, but the other
+	# two were well tested
+	ham =HamiltonianPathsInGraph(x, 4)
 	Path =ham.inductive_approach_findPath()
 	print(Path)
 	# Path_Existence =ham.dynamic_programming_findPath()
