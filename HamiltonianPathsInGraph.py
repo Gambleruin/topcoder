@@ -48,12 +48,16 @@ class HamiltonianPathsInGraph():
 
 		The implementation is quite brilliant 
 	'''
+	def convert_to_integer(self, size):
+		arr =np.zeros((size)) 
+		return arr.astype(int)
 	def inductive_approach(self, n):
 		start =0
+		# print('\n\n\n\n\n\n\n\n\n\n\n\n\n',type(start))
 		end =0
-		left =np.zero((128)) 
-		right =np.zero((128))
-		solution =np.zero((n))
+		left =self.convert_to_integer(128) 
+		right =self.convert_to_integer(128) 
+		ans =self.convert_to_integer(n) 
 		'''
 		if len(n) ==0:
 			return []
@@ -61,29 +65,37 @@ class HamiltonianPathsInGraph():
 
 		for i in range(n):
 			if self.adj[i][start] =='+':
-				left[start] =i
+				left[start] =int(i)
+				# print('\n\n\n\n\n\n\n\n\n\n\n\n\n',type(i))
 				right[i] =start
 				left[i] =-1
 				start =i
 				continue
 
 			if self.adj[end][i] =='+':
-				right[end] =i
+				right[end] =int(i)
+				# print('\n\n\n\n\n\n\n\n\n\n\n\n\n',type(i))
 				left[i] =end
 				right[i] =-1
 				end =i
 				continue
 
-			int j =start
+			j =start
 			while self.adj[j][i] == '+':
+				print('wo cao ni ma bi')
 				j =right[j]
+			# print(type(left[0]), type(right[0]))
 			k =left[j]
-			right[k] =i, left[i] =k
+			print('wo cao ni ma\n\n\n\n\n\n\n\n\n\n\n\n\n',right[0],'\n\n')
+			right[k] =i
+			left[i] =k
 			# ..
-			left[j] =i, right[i] =j
+			left[j] =i
+			right[i] =j
 
 		# getting the final solution
-		x =start, idx =0
+		x =start
+		idx =0
 		while x !=-1:
 			ans[idx] =x
 			idx+=1
@@ -142,7 +154,7 @@ class HamiltonianPathsInGraph():
 		return self.dp_solve(self.n)
 
 	def inductive_approach_findPath(self):
-		return inductive_approach(self.n)
+		return self.inductive_approach(self.n)
 
 
 
@@ -156,7 +168,8 @@ if __name__ == '__main__':
 	'''
 
 	ham =HamiltonianPathsInGraph(x, 2)
-	Path =inductive_approach_findPath()
+	Path =ham.inductive_approach_findPath()
+	print(Path)
 	# Path_Existence =ham.dynamic_programming_findPath()
 
 	
