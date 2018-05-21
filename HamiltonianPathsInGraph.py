@@ -46,14 +46,15 @@ class HamiltonianPathsInGraph():
 		nodes as red or blue, and O(n) time to insert our new node 
 		into this list).
 
-		The implementation is quite brilliant 
+		The implementation is almost identical to which the recursion above was constructed except
+		this is not recursion, thus it is slightly better than brute force approach 
 	'''
 	def convert_to_integer(self, size):
 		arr =np.zeros((size)) 
 		return arr.astype(int)
 	def inductive_approach(self, n):
 		start =0
-		# print('\n\n\n\n\n\n\n\n\n\n\n\n\n',type(start))
+		
 		end =0
 		left =self.convert_to_integer(128) 
 		right =self.convert_to_integer(128) 
