@@ -34,7 +34,7 @@ class HamiltonianPathsInGraph():
 				s1.add(w)
 			elif self.X[v][w] == '+':
 				s2.add(w)
-		return self.ham_bf(s1) +[v] +self.ham_bf(s2)
+		return self.brute_force(s1) +[v] +self.brute_force(s2)
 
 	# using induction but without recursion
 	# resources from:
