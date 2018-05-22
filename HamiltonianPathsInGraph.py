@@ -1,8 +1,10 @@
 
 '''
 SRM 733 
-(this is only for programming practise as all implementations are adapted from 
-other people, I do not implement them originally )
+(this is only for programming practise as all implementations are adapted, I do not implement them originally )
+HamiltonianPathsInGraph
+
+difficulty level: hard
 
 In the mathematical field of graph theory, a
  Hamiltonian path (or traceable path) is a 
@@ -12,7 +14,7 @@ In the mathematical field of graph theory, a
  * http://www.math.toronto.edu/gscott/sept20_2016.pdf *	
  * http://codeforces.com/blog/entry/43256?mobile=true&locale=en*
 '''
-# HamiltonianPathsInGraph
+
 
 import numpy as np
 class HamiltonianPathsInGraph():
