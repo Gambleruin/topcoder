@@ -21,17 +21,16 @@ difficulty level: easy
 
 using namespace std;
 
-#define M 32
-#define std::bitset<M> b
-
 class TheRoundCityDiv1 {
     int *divisors = new int[30];
 
-    int bit_cont( int x){
-    	return b.count(x);
+    int bit_cont(unsigned int x){
+    	int count;
+    	for(count =0; x !=0; count++, x &=x-1);
+    	return count;
     }
  
-    long find(int r) {
+    long TheRoundCityDiv1::find(int r) {
         long res = 0;
         if (r >= 1) ++res;
         if (r >= 2) ++res;
@@ -77,6 +76,9 @@ class TheRoundCityDiv1 {
 };
 
 int main(){
+	TheRoundCityDiv1 trcd;
+	long res =trcd.find(1);
+	printf(res);
 	return 0;
 }
 
