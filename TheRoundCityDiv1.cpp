@@ -1,6 +1,6 @@
 /*
 SRM 734
-(this is only for programming practise )
+(this is only for programming practise, I do not implement it originally )
 TheRoundCityDiv1
 The problem statement:
 https://community.topcoder.com/stat?c=problem_statement&pm=14897
