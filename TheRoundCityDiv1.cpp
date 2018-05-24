@@ -38,17 +38,28 @@ public:
 };
  
 int np[MAXN];
+
+void Print(int *arr, unsigned size){
+	for (int i =0; i<size; i++){
+		cout <<arr[i]<<endl;
+	}
+
+}
  
 ll gres (int x, int y) // # from 1..y that are rel prime to x
 {
   vector <int> v;
+  printf("%i%i\nwas I here\n",x,y);
   while (x > 1)
   {
     int p = np[x];
+    printf("\nthe prime is:%i\n", p);
     v.push_back(p);
     while (x % p == 0)
       x /= p;
+    printf("\nafter loop x has been changed to:%i\n", x);
   }
+  
   
   int ans = 0;
   int nv = v.size();
@@ -60,22 +71,19 @@ ll gres (int x, int y) // # from 1..y that are rel prime to x
       {
         cv = -cv;
         np = np * v[j];
+        printf("\nafter multiply by v ,np(int value) has been changed to: and also cv is%i\n%i\n", np, y);
       }
     ans += cv * (y / np);
   }
+  printf("\nthe number of coprime\n%i\n\n", ans);
   return ans;
 }
 
-void Print(int *arr, unsigned size){
-	for (int i =0; i<size; i++){
-		cout <<arr[i]<<endl;
-	}
 
-}
 
  
 long long TheRoundCityDiv1::find(int r) {
-
+  // generate all the prime numbers
   for (int i = 0; i < MAXN; i++)
     np[i] = -1;
   
@@ -90,16 +98,18 @@ long long TheRoundCityDiv1::find(int r) {
       }
     }
   }
-  Print(np, MAXN);
+  //Print(np, MAXN);
 
   ll ans = 4;
   ll ny = r;
+  ll temp =0;
   for (int i = 1; i <= r; i++)
   {
     ll nhi = r * (ll) r - i * (ll) i;
     while (ny * ny > nhi)
       ny--;
-    ans += 4 * gres (i, ny);
+    temp =4 * gres (i, ny); 	
+    ans += temp;
   }
   return ans;
 }
@@ -109,8 +119,8 @@ int main(){
 	
 	TheRoundCityDiv1* obj =new TheRoundCityDiv1;
 	METHOD Action =&TheRoundCityDiv1::find;
-	int res =(obj->*Action)(1);
-	printf("%i\n\n", res);
+	int res =(obj->*Action)(2);
+	//printf("%i\n\n", res);
 	delete obj;
 	return 0;
 }
