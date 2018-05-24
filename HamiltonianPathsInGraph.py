@@ -1,7 +1,7 @@
 
 '''
 SRM 733 
-(this is only for programming practise as all implementations are adapted, I do not implement them originally )
+(this is only for programming practise as all implementations are adapted )
 HamiltonianPathsInGraph
 
 difficulty level: hard
