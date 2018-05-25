@@ -139,16 +139,17 @@ public:
   }
 };
 
-typedef ll (CardCounter::*METHOD)(double);
+typedef double (CardCounter::*METHOD)(vector<int>, int, vector<int>);
 
 int main(){
 	//input
-	double deck[] = {0, 0, 0, 0, 0, 0, 0, 4, 0, 4};
-	
+	vector<int> deck= {0, 0, 0, 0, 0, 0, 0, 4, 0, 4};
+	int dealer =10;
+	vector<int> player= {5, 5};
 	CardCounter* obj =new CardCounter;
 	METHOD Action =&CardCounter::winningChance;
-	double res =(obj->*Action)();
-	printf("%i\n\n", res);
+	double res =(obj->*Action)(deck, dealer, player);
+	printf("%f\n\n", res);
 	delete obj;
 	return 0;
 }
