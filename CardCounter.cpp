@@ -7,6 +7,7 @@ The problem statement:
 https://community.topcoder.com/stat?c=problem_statement&pm=14021&rd=17158&rm=&cr=22907549
 
 difficulty level: medium
+
 */
 
 #include <algorithm>
@@ -137,4 +138,23 @@ public:
     return movePlayer (1.0);
   }
 };
+
+typedef ll (CardCounter::*METHOD)(double);
+
+int main(){
+	//input
+	double deck[] = {0, 0, 0, 0, 0, 0, 0, 4, 0, 4};
+	
+	CardCounter* obj =new CardCounter;
+	METHOD Action =&CardCounter::winningChance;
+	double res =(obj->*Action)();
+	printf("%i\n\n", res);
+	delete obj;
+	return 0;
+}
+
+
+
+
+
 
