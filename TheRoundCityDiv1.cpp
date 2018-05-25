@@ -1,6 +1,6 @@
 /*
 SRM 734
-(this is only for programming practise, I do not implement it originally )
+
 TheRoundCityDiv1
 The problem statement:
 https://community.topcoder.com/stat?c=problem_statement&pm=14897
@@ -99,7 +99,6 @@ long long TheRoundCityDiv1::find(int r) {
     }
   }
   //Print(np, MAXN);
-
   ll ans = 4;
   ll ny = r;
   ll temp =0;
