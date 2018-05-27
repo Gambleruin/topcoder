@@ -38,44 +38,69 @@ lead to de-matching other elements along the way, but because we are following a
 unmatched in the process.
 */
 
-void Print(int *arr, unsigned size){
+int rows, cols;
+
+void Print(int *arr, unsigned size)
+{
 	for (int i =0; i<size; i++){
 		cout <<arr[i]<<endl;
 	}
 
 }
 
-	/*
-
-
-
-
-	   bool find_match(int where) {
-     // the previous column was not matched
-     if (where == -1)
-       return true;
-     for (int i = 0; i < lst[where].size(); ++ i) {
-       int match = lst[where][i];
-       if (visited[match] == false) {
-         visited[match] = true;
-         if (find_match(col_match[match])) {
-           col_match[match] = where;
-           return true;
-         }
-       }
-     }
-     return false;
-   }
-
-	*/
+int find_path(int where)  
+{  
+    if (-1 == where) {      
+        return 1;  
+    }  
+    for (int i = 0; i < cols; i++) {  
+        if (cut[where][i] || v[i]) {  
+                continue;  
+            }  
+            v[i] = true;  
+            if (find_path(col_match[i])) {  
+                col_match[i] = where;      
+                return 1;  
+            }  
+    }  
+    return 0;  
+} 
 
 class MaxFlowImplementation
 {
 public:
-	vector<vector<int> > g;
-	vector<bool> used;
-	int n, k;
- 
+    // reuction to max_flow using Ford–Fulkerson algorithm
+	int bipartite_matching(int rows, int cols, vector <string> cutouts){
+		int res = 0;  
+        this->rows = rows;  
+        this->cols = cols;  
+        memset(cut, 0, sizeof(cut));  
+        // 对字符串进行处理  
+        string S;  
+        for (int i = 0; i < cutouts.size(); i++) {  
+            S += cutouts[i] + ", ";  
+        }             
+        for (int i = 0; i < S.size(); i++) {  
+            if (',' == S[i]) {  
+                S[i] = ' ';  
+            }  
+        }  
+        int r, c;  
+        stringstream ss(S);  
+        while (ss >> r >> c) {  
+            cut[r][c] = true;  
+        }  
+        memset(col_match, -1, sizeof(col_match));  
+        for (int i = 0; i < rows; i++) {  
+            memset(v, 0, sizeof(v));  
+            res += find_path(i);        // dfs找增广路径  
+        }  
+        return res;  
+    }  
+};
+
+
+ /*
 	bool find_path(int a, int b) 
         {
 		if(a == b) return true;
@@ -90,9 +115,10 @@ public:
 			}
 		return false;
 	}
- 
+*/
+
 	vector<pair<int, int> > find_max_matching(vector<vector<int> > &v, int _n, int _k)
-        {
+    {
 		//v[i] is a list of adjacent vertices to vertex i, where i is from left part and v[i][j] is from right part
 		n = _n;
 		//n is number of vertices in left part of graph
