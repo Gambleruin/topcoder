@@ -42,7 +42,7 @@ bool cut[305][305];
 int col_match[305];  
 bool v[305]; 
 
-int row, col;
+
 
 void Print(int *arr, unsigned size)
 {
@@ -59,32 +59,36 @@ int bfs(int where)
 }
 */
 
-//use dfs to find path
-int dfs(int where)  
-{  
-	/*
-	no argumenting path implies maximum matching
-	https://www.cs.dartmouth.edu/~ac/Teach/CS105-Winter05/Notes/kavathekar-scribe.pdf
-	*/
-    if (-1 == where) {      
-        return 1;  
-    }  
-    for (int i = 0; i < cols; i++) {  
-        if (cut[where][i] || v[i]) {  
-                continue;  
-            }  
-            v[i] = true;  
-            if (find_path(col_match[i])) {  
-                col_match[i] = where;      
-                return 1;  
-            }  
-    }  
-    return 0;  
-} 
+
 
 class RookAttack
 {
+
 public:	
+	int rows, cols;
+	//use dfs to find path
+	int find_path(int where)  
+	{  
+		/*
+		no argumenting path implies maximum matching
+		https://www.cs.dartmouth.edu/~ac/Teach/CS105-Winter05/Notes/kavathekar-scribe.pdf
+		*/
+    	if (-1 == where) {      
+        	return 1;  
+    	}  
+    	for (int i = 0; i < cols; i++) {  
+        	if (cut[where][i] || v[i]) {  
+                	continue;  
+            	}  
+            	v[i] = true;  
+            	if (find_path(col_match[i])) {  
+                	col_match[i] = where;      
+                	return 1;  
+            	}  
+    }  
+    return 0;  
+
+} 
     // reduction to max_flow using Ford–Fulkerson algorithm
 	int b_match(int rows, int cols, vector <string> cutouts){
 		int res = 0;  
@@ -117,9 +121,9 @@ public:
 typedef int (RookAttack::*METHOD)(int, int, vector<string>);
 
 int main(){
-	int row =2;
-	int col =2;
-	vector<string> cuts= {"0 0","0 1","1 1","1 0"};
+	int row =3;
+	int col =3;
+	vector<string> cuts= {"0 0","1 0","1 1","2 0","2 1","2 2"};
 	RookAttack* obj =new RookAttack;
 	METHOD Action =&RookAttack::b_match;
 	int res =(obj->*Action)(row, col, cuts);
