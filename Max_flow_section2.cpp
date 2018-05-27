@@ -37,7 +37,7 @@ problem: graduation, rook attack
 #include <climits>  
 
 using namespace std;
-
+//global variables 
 bool cut[305][305]; 
 int col_match[305];  
 bool v[305]; 
@@ -52,10 +52,13 @@ void Print(int *arr, unsigned size)
 }
 
 //use bfs to find path
+/*
 int bfs(int where)
 {
 
 }
+*/
+
 //use dfs to find path
 int dfs(int where)  
 {  
