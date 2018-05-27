@@ -10,13 +10,6 @@ problems statement:
 http://community.topcoder.com/stat?c=problem_statement&pm=2852&rd=5075
 problem: graduation, rook attack
 
-the bfs might be preferred here is becasue 
-The next best thing in the matter of simplicity 
-is a breadth-first search (BFS). Recall that 
-this search usually yields the shortest path 
-in an un-weighted graph. Indeed, this also applies 
-here to get the shortest augmenting path from the 
-source to the sink.
 */
 
 #include <iostream> 
@@ -44,6 +37,37 @@ so we can just iterate through each of them and try to find a match in set B. If
 lead to de-matching other elements along the way, but because we are following an augmenting path, no element will eventually remain 
 unmatched in the process.
 */
+
+void Print(int *arr, unsigned size){
+	for (int i =0; i<size; i++){
+		cout <<arr[i]<<endl;
+	}
+
+}
+
+	/*
+
+
+
+
+	   bool find_match(int where) {
+     // the previous column was not matched
+     if (where == -1)
+       return true;
+     for (int i = 0; i < lst[where].size(); ++ i) {
+       int match = lst[where][i];
+       if (visited[match] == false) {
+         visited[match] = true;
+         if (find_match(col_match[match])) {
+           col_match[match] = where;
+           return true;
+         }
+       }
+     }
+     return false;
+   }
+
+	*/
 
 class MaxFlowImplementation
 {
@@ -74,7 +98,6 @@ public:
 		//n is number of vertices in left part of graph
 		k = _k;
 		//k is number of vertices in right part of graph
- 
 		g = vector<vector<int> >(n+k+2, vector<int>(n+k+2));
 		//g[i][j] = 1 if there is edge between vertex i from left part 
 		//and vertex j from right part
@@ -87,7 +110,7 @@ public:
 			g[S][i] = 1;
 		for(int i = 0; i < k; i++)
 			g[n+i][T] = 1;
- 
+
 		vector<vector<int> > _g(g);
  
 		used = vector<bool> (n+k+2, false);
@@ -109,8 +132,8 @@ class RookAttack
 public:
         int howMany(int n, int k, vector <string> cuts) 
         {
-		vector<vector<int> > g(n);
-		vector<vector<bool> > _g(n, vector<bool> (k, true));
+		vector<vector<int> > v(n);
+		vector<vector<bool> > _v(n, vector<bool> (k, true));
 		
 		for(int i = 0; i < cuts.size(); i++)
 		{
@@ -119,26 +142,26 @@ public:
 			char c;
 			while(is >> a >> b)
 			{
-				_g[a][b] = false;
+				_v[a][b] = false;
 				is >> c;
 			}
 		}
  
 		for(int i = 0; i < n; i++)
 			for(int j = 0; j < k; j++)
-				if(_g[i][j])
-					g[i].push_back(j+n);
+				if(_v[i][j])
+					v[i].push_back(j+n);
  		MaxFlowImplementation obj;
-		return obj.find_max_matching(g, n, k).size();
+		return obj.find_max_matching(v, n, k).size();
         }
 };
 
 typedef int (RookAttack::*METHOD)(int, int, vector<string>);
 
 int main(){
-	int row =8;
-	int col =8;
-	vector<string> cuts= {};
+	int row =2;
+	int col =2;
+	vector<string> cuts= {"0 0","0 1","1 1","1 0"};
 	RookAttack* obj =new RookAttack;
 	METHOD Action =&RookAttack::howMany;
 	int res =(obj->*Action)(row, col, cuts);
