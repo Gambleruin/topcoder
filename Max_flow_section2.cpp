@@ -51,8 +51,18 @@ void Print(int *arr, unsigned size)
 	}
 }
 
-int find_path(int where)  
+//use bfs to find path
+int bfs(int where)
+{
+
+}
+//use dfs to find path
+int dfs(int where)  
 {  
+	/*
+	no argumenting path implies maximum matching
+	https://www.cs.dartmouth.edu/~ac/Teach/CS105-Winter05/Notes/kavathekar-scribe.pdf
+	*/
     if (-1 == where) {      
         return 1;  
     }  
@@ -71,10 +81,9 @@ int find_path(int where)
 
 class RookAttack
 {
-public:
-	
+public:	
     // reduction to max_flow using Ford–Fulkerson algorithm
-	int bipartite_matching(int rows, int cols, vector <string> cutouts){
+	int b_match(int rows, int cols, vector <string> cutouts){
 		int res = 0;  
         this->rows = rows;  
         this->cols = cols;  
@@ -109,7 +118,7 @@ int main(){
 	int col =2;
 	vector<string> cuts= {"0 0","0 1","1 1","1 0"};
 	RookAttack* obj =new RookAttack;
-	METHOD Action =&RookAttack::howMany;
+	METHOD Action =&RookAttack::b_match;
 	int res =(obj->*Action)(row, col, cuts);
 	printf("%i\n\n", res);
 	delete obj;
