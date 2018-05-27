@@ -77,7 +77,7 @@ public:
  
 		g = vector<vector<int> >(n+k+2, vector<int>(n+k+2));
 		//g[i][j] = 1 if there is edge between vertex i from left part 
-		//            			    and vertex j from right part
+		//and vertex j from right part
 		for(int i = 0; i < v.size(); i++)
                     for(int j = 0; j < v[i].size(); j++)
                         g[i][v[i][j]] = 1;
@@ -129,13 +129,11 @@ public:
 				if(_g[i][j])
 					g[i].push_back(j+n);
  
-		//if you use Kuhn algorithm
-		KuhnImplementation obj;
-                // or if you use max flow algorithm
-                //MaxFlowImplementation obj
 		return obj.find_max_matching(g, n, k).size();
         }
 };
+
+typedef double (RookAttack::*METHOD)(vector<int>, int, vector<int>);
 
 int main(){
    return 0;
