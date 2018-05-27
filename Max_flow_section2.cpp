@@ -128,15 +128,23 @@ public:
 			for(int j = 0; j < k; j++)
 				if(_g[i][j])
 					g[i].push_back(j+n);
- 
+ 		MaxFlowImplementation obj;
 		return obj.find_max_matching(g, n, k).size();
         }
 };
 
-typedef double (RookAttack::*METHOD)(vector<int>, int, vector<int>);
+typedef int (RookAttack::*METHOD)(int, int, vector<string>);
 
 int main(){
-   return 0;
+	int row =8;
+	int col =8;
+	vector<string> cuts= {};
+	RookAttack* obj =new RookAttack;
+	METHOD Action =&RookAttack::howMany;
+	int res =(obj->*Action)(row, col, cuts);
+	printf("%i\n\n", res);
+	delete obj;
+    return 0;
 }
 
 
