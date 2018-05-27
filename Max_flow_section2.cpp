@@ -74,8 +74,7 @@ public:
 		int res = 0;  
         this->rows = rows;  
         this->cols = cols;  
-        memset(cut, 0, sizeof(cut));  
-        // 对字符串进行处理  
+        memset(cut, 0, sizeof(cut));   
         string S;  
         for (int i = 0; i < cutouts.size(); i++) {  
             S += cutouts[i] + ", ";  
@@ -93,12 +92,11 @@ public:
         memset(col_match, -1, sizeof(col_match));  
         for (int i = 0; i < rows; i++) {  
             memset(v, 0, sizeof(v));  
-            res += find_path(i);        // dfs找增广路径  
+            res += find_path(i);         
         }  
         return res;  
     }  
 };
-
 
  /*
 	bool find_path(int a, int b) 
@@ -151,7 +149,7 @@ public:
  
 		return res;
 	}
-};
+
 
 class RookAttack 
 {
