@@ -38,7 +38,11 @@ problem: graduation, rook attack
 
 using namespace std;
 
-int rows, cols;
+bool cut[305][305]; 
+int col_match[305];  
+bool v[305]; 
+
+int row, col;
 
 void Print(int *arr, unsigned size)
 {
@@ -68,6 +72,7 @@ int find_path(int where)
 class RookAttack
 {
 public:
+	
     // reduction to max_flow using Ford–Fulkerson algorithm
 	int bipartite_matching(int rows, int cols, vector <string> cutouts){
 		int res = 0;  
