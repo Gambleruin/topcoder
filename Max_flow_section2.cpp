@@ -51,45 +51,52 @@ void Print(int *arr, unsigned size)
 	}
 }
 
-//use bfs to find path
-/*
-int bfs(int where)
-{
-
-}
-*/
-
-
-
 class RookAttack
 {
 
 public:	
 	int rows, cols;
-	//use dfs to find path
-	int find_path(int where)  
+	
+	int find_path(int source)  
 	{  
 		/*
 		no argumenting path implies maximum matching
 		https://www.cs.dartmouth.edu/~ac/Teach/CS105-Winter05/Notes/kavathekar-scribe.pdf
 		*/
-    	if (-1 == where) {      
+    	if (-1 == source) {  
+    		 
         	return 1;  
     	}  
     	for (int i = 0; i < cols; i++) {  
-        	if (cut[where][i] || v[i]) {  
+        	if (cut[source][i] || v[i]) {  
                 	continue;  
             	}  
             	v[i] = true;  
             	if (find_path(col_match[i])) {  
-                	col_match[i] = where;      
+                	col_match[i] = source;  
+                	printf("but what about here?\n\n\n\n\n\n\n\n");    
                 	return 1;  
             	}  
-    }  
+    	}  
     return 0;  
+	} 
 
-} 
-    // reduction to max_flow using Ford–Fulkerson algorithm
+	//use bfs to find path (gredily )
+	int find_find_gred(int source)
+	{
+		//the row-vertex that precedes x in the path
+		vector<int> from;
+		memset(from, -1, sizeof(from));
+		from[source] =source;
+		deque <int> q;
+		q.push_back(source);
+
+		int found_path =0;		
+		while (!found_path && !q.empty()){
+
+		}
+	}
+    // reduction to max_flow using Ford–Fulkerson algorithm with dfs
 	int b_match(int rows, int cols, vector <string> cutouts){
 		int res = 0;  
         this->rows = rows;  
@@ -111,7 +118,7 @@ public:
         }  
         memset(col_match, -1, sizeof(col_match));  
         for (int i = 0; i < rows; i++) {  
-            memset(v, 0, sizeof(v));  
+            memset(v, 0, sizeof(v)); 
             res += find_path(i);         
         }  
         return res;  
@@ -121,13 +128,13 @@ public:
 typedef int (RookAttack::*METHOD)(int, int, vector<string>);
 
 int main(){
-	int row =3;
-	int col =3;
-	vector<string> cuts= {"0 0","1 0","1 1","2 0","2 1","2 2"};
+	int row =8;
+	int col =8;
+	vector<string> cuts= {};
 	RookAttack* obj =new RookAttack;
 	METHOD Action =&RookAttack::b_match;
 	int res =(obj->*Action)(row, col, cuts);
-	printf("%i\n\n", res);
+	printf("\n%i\n\n", res);
 	delete obj;
     return 0;
 }
