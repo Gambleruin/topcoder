@@ -37,12 +37,17 @@ problem: graduation, rook attack
 #include <climits>  
 
 using namespace std;
-//global variables 
-bool cut[305][305]; 
-int col_match[305];  
-bool v[305]; 
+//global variables for dfs
+/*
+bool cut[30][30]; 
+int col_match[30];  
+bool v[30]; 
+*/
 
-
+bool cut[30][30]; 
+int cap[30][30];  
+int from[30];      
+bool v[30];       
 
 void Print(int *arr, unsigned size)
 {
@@ -81,13 +86,8 @@ public:
     return 0;  
 	} 
 
-	    int bfs()  
-    {         
- 
-    } 
-
 	//use bfs to find path (gredily ) with Ford–Fulkerson algorithm
-	int find_path_gred(int source)
+	int find_path_gred()
 	{
 		//the row-vertex that precedes x in the path
 		/*
@@ -227,7 +227,7 @@ int main(){
 	int col =8;
 	vector<string> cuts= {};
 	RookAttack* obj =new RookAttack;
-	METHOD Action =&RookAttack::d_match;
+	METHOD Action =&RookAttack::b_match;
 	int res =(obj->*Action)(row, col, cuts);
 	printf("\n%i\n\n", res);
 	delete obj;
