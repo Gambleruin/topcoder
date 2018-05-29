@@ -68,7 +68,6 @@ void initialize_adjacency_matrix(adjacency_matrix *g){
 	for(i =1; i<MAXV; i++)
 		for(j =1; j<=MAXV; j++)
 			g->weight[i][j] =MAXINT;
-
 }
 
 void read_adjacency_matrix(adjacency_matrix *g, bool directed){
@@ -108,8 +107,35 @@ double ratio = 0;
 	}
 	return ratio;
 */
-double cal_ratio(){
 
+int main(){
+    vector<string> caps= {"1,10 2,9","","1,100"};
+    vector<string> costs= {"1,100 2,50","","1,50"};
+    int source =0;
+    int sink =1;
+
+    memset(caps, 0, sizeof(caps));  
+    memset(costs, 0, sizeof(costs)); 
+    string S;  
+    for (int i = 0; i < cutouts.size(); i++) {  
+        S += cutouts[i] + ", ";  
+    }             
+    for (int i = 0; i < S.size(); i++) {  
+        if (',' == S[i]) {  
+            S[i] = ' ';  
+        }  
+    }  
+    int r, c;  
+    stringstream ss(S);  
+    while (ss >> r >> c) {  
+        cut[r][c] = true;  
+    }  
+    memset(col_match, -1, sizeof(col_match));  
+    for (int i = 0; i < rows; i++) {  
+        memset(v, 0, sizeof(v)); 
+                 
+        }  
+	return 0;
 }
 
 
