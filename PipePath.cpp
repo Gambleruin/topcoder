@@ -7,28 +7,11 @@ problem statement:
 https://community.topcoder.com/stat?c=problem_statement&pm=1889&rd=4709
 Difficult level: medium
 
-double ratio = 0;
-	foreach(unique capacity cap){
-		find the shortest path from source to sink,
-		   each of whose edges has a capacity of at least cap
-		if(there is some path){
-			ratio = max(ratio, cap/pathLength)
-		}
-	}
-	return ratio;
-
+source from:
+https://community.topcoder.com/tc?module=Static&d1=tournaments&d2=tco03&d3=summary&d4=room4_analysis
+trust me, the author is brilliant :), so now, I have an idea of the implementation 
 */
-/*
 
-   programming chanllenges
-   Floyd-Warshall algorithm implementation 
-
-   Hi! I forgot how ,all along, the struct is so useful :D, lets do this! 
-   source from:
-   https://community.topcoder.com/tc?module=Static&d1=tournaments&d2=tco03&d3=summary&d4=room4_analysis
-   trust me, the author brilliant :), so now, I have an idea of the implementation 
-
-*/
 #include <algorithm>  
 #include <functional>  
 #include <numeric>  
@@ -59,6 +42,7 @@ const int MAXV = 50; // only 50 does not require super good algorithm to achieve
 
 typedef struct {
 	int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
+	int cost[MAXV+1][MAXV+1];
 	int nvertices;   /* number of vertices in graph */
 } adjacency_matrix;
 
@@ -94,6 +78,15 @@ void floyd(adjacency_matrix *g){
 				if(through_k <g->weight[i][j])
 					g->weight[i][j] =through_k;
 			}
+}
+
+//manipulate the input 
+void tok_strInput(const std::string& input){
+	istringstream ss(input);
+	string token;
+	while(getline(ss, token, ' ')){
+		cout<<token<<'\n';
+	}
 }
 
 /*
