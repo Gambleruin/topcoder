@@ -24,10 +24,6 @@ trust me, the author is brilliant :), so now, I have an idea of the implementati
 #include <string>  
 #include <vector>  
 #include <stack>  
-#include <deque>  
-#include <queue>  
-#include <set>  
-#include <map>  
   
 #include <cstdio>  
 #include <cstdlib>  
@@ -45,6 +41,12 @@ typedef struct {
 	int cost[MAXV+1][MAXV+1];
 	int nvertices;   /* number of vertices in graph */
 } adjacency_matrix;
+
+typedef struct{
+	vector<string> caps, 
+	vector<string> costs;
+} str_vectors;
+
 
 void initialize_adjacency_matrix(adjacency_matrix *g){
 	int i, j; /* counters */
@@ -80,15 +82,38 @@ void floyd(adjacency_matrix *g){
 			}
 }
 
-//manipulate the input 
-void tok_strInput(const string& input, vector<string> caps, vector<string> costs){
-	istringstream ss(input);
-	string token;
-	while(getline(ss, token, ' ')){
-		cout<<token<<'\n';
-		input_vec.push_back(token);
-	}
+//manipulate the input (1, 10)
+string tok_strInput(const string& str){
 
+	stringstream ss(str);
+
+    int i;
+    while (ss >> i) 
+    {
+            if(name.at(i)==','){
+                Capacity=name.substr(i+1);  
+                
+        		ss.ignore(1); 
+        		break;      
+            }        
+    }
+    return i;
+}
+
+void process_tok(const vector<string>& vstr){
+	string token;
+
+	for(auto i : vstr) {
+    	// process i
+    	while(getline(ss, token, ' ')){
+    		cout<<token<<'\n';
+			caps.push_back(tok_strInput(token));
+		}
+    	cout << i << " "; // this will print all the contents of *features*
+	}
+}
+
+void build_graph(){
 
 }
 
@@ -110,6 +135,11 @@ int main(){
     int source =0;
     int sink =1;
 
+    istringstream ss(input);
+
+    process_tok(caps);
+    process_tok(costs);
+/*
     memset(caps, 0, sizeof(caps));  
     memset(costs, 0, sizeof(costs)); 
     string S;  
@@ -131,6 +161,7 @@ int main(){
         memset(v, 0, sizeof(v)); 
                  
         }  
+*/
 	return 0;
 }
 
