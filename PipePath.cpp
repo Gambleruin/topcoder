@@ -81,12 +81,15 @@ void floyd(adjacency_matrix *g){
 }
 
 //manipulate the input 
-void tok_strInput(const std::string& input){
+void tok_strInput(const string& input, vector<string> caps, vector<string> costs){
 	istringstream ss(input);
 	string token;
 	while(getline(ss, token, ' ')){
 		cout<<token<<'\n';
+		input_vec.push_back(token);
 	}
+
+
 }
 
 /*
