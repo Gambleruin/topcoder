@@ -113,10 +113,8 @@ void build_capacity(const vector<string>& vstr, adjacency_matrix am){
 
 	for(auto i : vstr) {
 		am->weight[i][sink] =caps[i];
-		costs[i][sink] =costs[i];
 		sink++;
 	}
-
 }
 
 void build_cost(const vector<string>& vstr, str_vectors svs){
@@ -128,7 +126,6 @@ void build_cost(const vector<string>& vstr, str_vectors svs){
 		svs->costs[i][sink] =costs[i];
 		sink++;
 	}
-
 }
 
 /*
