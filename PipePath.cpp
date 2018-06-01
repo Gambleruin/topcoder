@@ -15,23 +15,16 @@ trust me, the author is brilliant :), so now, I have an idea of the implementati
 #include <algorithm>  
 #include <functional>  
 #include <numeric>  
-#include <utility>  
+
 #include <iostream>  
 #include <sstream>  
-#include <iomanip>  
-  
-#include <bitset>  
+ 
 #include <string>  
-#include <vector>  
-#include <stack>  
-  
+#include <vector>    
 #include <cstdio>  
 #include <cstdlib>  
-#include <cctype>  
-#include <cmath>  
 #include <cstring>  
-#include <ctime>  
-#include <climits>  
+
 using namespace std; 
 
 const int MAXV = 50; // only 50 does not require super good algorithm to achieve the goal :) 
@@ -83,37 +76,58 @@ void floyd(adjacency_matrix *g){
 }
 
 //manipulate the input (1, 10)
-string tok_strInput(const string& str){
+string tok_sstr(const string& str){
 
 	stringstream ss(str);
 
-    int i;
+    int i =0;
     while (ss >> i) 
     {
             if(name.at(i)==','){
-                Capacity=name.substr(i+1);  
+                val=str.substr(i+1);  
                 
         		ss.ignore(1); 
         		break;      
-            }        
+            } 
+            i++;       
     }
-    return i;
+    return val;
 }
 
-void process_tok(const vector<string>& vstr){
+void process_tok(const vector<string>& vstr, vector<string>& tar){
 	string token;
 
 	for(auto i : vstr) {
     	// process i
     	while(getline(ss, token, ' ')){
     		cout<<token<<'\n';
-			caps.push_back(tok_strInput(token));
+			tar.push_back(tok_strInput(token));
 		}
     	cout << i << " "; // this will print all the contents of *features*
 	}
 }
 
-void build_graph(){
+void build_capacity(const vector<string>& vstr, adjacency_matrix am){
+	sink =1;
+	process_tok(caps_str);
+
+	for(auto i : vstr) {
+		am->weight[i][sink] =caps[i];
+		costs[i][sink] =costs[i];
+		sink++;
+	}
+
+}
+
+void build_cost(const vector<string>& vstr, str_vectors svs){
+	sink =1;
+
+    process_tok(costs_str);
+	for(auto i : vstr) {
+
+		svs->costs[i][sink] =costs[i];
+		sink++;
+	}
 
 }
 
@@ -130,15 +144,20 @@ double ratio = 0;
 */
 
 int main(){
-    vector<string> caps= {"1,10 2,9","","1,100"};
-    vector<string> costs= {"1,100 2,50","","1,50"};
+    vector<string> caps_str= {"1,10 2,9","","1,100"};
+    vector<string> costs_str= {"1,100 2,50","","1,50"};
     int source =0;
     int sink =1;
 
-    istringstream ss(input);
+    adjacency_matrix am;
+    str_vectors svs;
 
-    process_tok(caps);
-    process_tok(costs);
+
+    istringstream ss(input);
+    build_capacity(caps_str, am);
+    build_cost(costs_str, svs);
+
+
 /*
     memset(caps, 0, sizeof(caps));  
     memset(costs, 0, sizeof(costs)); 
