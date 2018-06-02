@@ -21,6 +21,7 @@ typedef struct {
   int nvertices;   /* number of vertices in graph */
 } ADJACENCY_MATRIX;
 
+//one way to validate if it prints out the correct weight matrix for graph
 void print_matrix(ADJACENCY_MATRIX *a){
   
   int val;
@@ -85,6 +86,57 @@ vector< int > sti( const vector< string > &a ) {
     oot.push_back( atoi( a[ i ].c_str() ) );
   }
   return oot;
+}
+
+
+//floyd
+void initialize_adjacency_matrix(adjacency_matrix *g){
+  int i, j; /* counters */
+  g->nvertices =0;
+  for(i =1; i<MAXV; i++)
+    for(j =1; j<=MAXV; j++)
+      g->weight[i][j] =MAXINT;
+}
+
+void read_adjacency_matrix(adjacency_matrix *g, bool directed){
+  int i;      /* counter*/
+  int m;      /* number of edges */
+  int x,y,w;  /* placeholder for edge/weight */
+
+  initialize_adjacency_matrix(g);
+  for(i =1; i<=m; i++){
+    g->weight[x][y] =w;
+    if(directed ==FALSE) g->weight[y][x] =w;
+  }
+}
+
+void floyd(adjacency_matrix *g){
+  int i, j;     /* dimension counters */
+  int k;        /* intermediate vertex counter */
+  int through_k;/* distance through vertex k */
+
+  for (k =1; k<=g->nvertices; k++)
+    for(i =1; i<=g->nvertices; i++)
+      for(j =1; j<=g->nvertices; j++){
+        through_k =g->weight[i][k]+g->weight[k][j];
+        if(through_k <g->weight[i][j])
+          g->weight[i][j] =through_k;
+      }
+}
+
+class pipe_path{
+  /*
+double ratio = 0;
+  foreach(unique capacity cap){
+    find the shortest path from source to sink,
+       each of whose edges has a capacity of at least cap
+    if(there is some path){
+      ratio = max(ratio, cap/pathLength)
+    }
+  }
+  return ratio;
+*/
+
 }
 
 int main(){
