@@ -21,6 +21,17 @@ typedef struct {
   int nvertices;   /* number of vertices in graph */
 } ADJACENCY_MATRIX;
 
+void print_matrix(ADJACENCY_MATRIX *a){
+  
+  int val;
+  for (int i =0; i<3; i++){
+    for(int j =0; j<3; j++){
+      val =a->weight[i][j];
+      printf("%d%d\n%d\n",i, j, val);
+    }
+  }
+
+}
 void print(vector<int>  str){
   for (auto i = str.begin(); i != str.end(); ++i){
     printf("\n wewanna know what is isis???");
@@ -100,16 +111,17 @@ for( int i = 0; i < caps_str.size(); i++) {
         //printf("%d\n%d\n%d\n\n", i,icb[0], ad_M.weight[i][icb[0]] );
         
         
-        printf("%d\n\n", ad_M.weight[i][icb[0]]);
-        printf("easy easy\n\n");
-        printf("%d\n\n", ad_M.cost[i][ccb[0]]);
+        //printf("%d\n\n", ad_M.weight[i][icb[0]]);
+        //printf("easy easy\n\n");
+        //printf("%d\n\n", ad_M.cost[i][ccb[0]]);
 
         //printf( "%s, %s, %d, %d,\n", ica[i+1].c_str(), cca[i+1].c_str(), i, j);
         
       }
       
-      printf("outter loop ye one turn\n\n");
+      //printf("outter loop ye one turn\n\n");
 }
+print_matrix(&ad_M);
 
 return 0;
 }
