@@ -19,11 +19,18 @@ typedef struct {
   int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
   int cost[MAXV+1][MAXV+1];
   int nvertices;   /* number of vertices in graph */
-} adjacency_matrix;
+} ADJACENCY_MATRIX;
 
 void print(vector<int>  str){
   for (auto i = str.begin(); i != str.end(); ++i){
     printf("\n wewanna know what is isis???");
+    cout << *i << ' ';
+  }
+}
+
+void prints(vector<string>  str){
+  for (auto i = str.begin(); i != str.end(); ++i){
+    printf("\n wewanna know aaa???");
     cout << *i << ' ';
   }
 }
@@ -74,21 +81,34 @@ int main(){
 vector<string> caps_str= {"1,10 2,9","","1,100"};
 vector<string> costs_str= {"1,100 2,50","","1,50"};
 
+ADJACENCY_MATRIX ad_M;
+memset( &ad_M, 0, sizeof( ADJACENCY_MATRIX ) );
+
 for( int i = 0; i < caps_str.size(); i++) {
-      vector< string > ica = tokenize( caps_str[ i ], " " );
-      //print(ica);
-      //break;
+      vector< string > ica = tokenize( caps_str[ i ], " " );      
       vector< string > cca = tokenize( costs_str[ i ], " " );
-      //print(cca);
       for( int j = 0; j < ica.size(); j++ ) {
-        //printf("%lu\n\n\n", ica.size());
         vector< int > icb = sti( tokenize( ica[ j ], "," ) );
-        print(icb);
+        //as the first element will be the sink and second one is the capacity
+        
+        //initialize value for weight matrix 
+        ad_M.weight[i][icb[0]] =icb[1];
         vector< int > ccb = sti( tokenize( cca[ j ], "," ) );
-        print(ccb);
+        // same thing goes with cost list
+        ad_M.cost[i][ccb[0]] =ccb[1];
+        
+        //printf("%d\n%d\n%d\n\n", i,icb[0], ad_M.weight[i][icb[0]] );
+        
+        
+        printf("%d\n\n", ad_M.weight[i][icb[0]]);
+        printf("easy easy\n\n");
+        printf("%d\n\n", ad_M.cost[i][ccb[0]]);
+
         //printf( "%s, %s, %d, %d,\n", ica[i+1].c_str(), cca[i+1].c_str(), i, j);
+        
       }
-      //printf("outter loop ye one turn\n");
+      
+      printf("outter loop ye one turn\n\n");
 }
 
 return 0;
