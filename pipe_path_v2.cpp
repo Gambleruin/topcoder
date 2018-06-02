@@ -13,9 +13,17 @@ mei you
 #include <iostream>
 using namespace std;
 
-void print(vector<string>  str){
+const int MAXV = 50; // only 50 does not require super good algorithm to achieve the goal :) 
+
+typedef struct {
+  int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
+  int cost[MAXV+1][MAXV+1];
+  int nvertices;   /* number of vertices in graph */
+} adjacency_matrix;
+
+void print(vector<int>  str){
   for (auto i = str.begin(); i != str.end(); ++i){
-    printf("\n wewanna know what is oot");
+    printf("\n wewanna know what is isis???");
     cout << *i << ' ';
   }
 }
@@ -39,8 +47,8 @@ vector< string > tokenize( string a, string b ) {
       e++;
     }
     oot.push_back( string( q, e ) );
-    print(oot);
-    printf("\n\n\n\n\n\n\n\n");
+    //print(oot);
+    //printf("\n\n\n\n\n\n\n\n");
     q = e;
 
     while( count( b.begin(), b.end(), *q ) ) {
@@ -68,12 +76,16 @@ vector<string> costs_str= {"1,100 2,50","","1,50"};
 
 for( int i = 0; i < caps_str.size(); i++) {
       vector< string > ica = tokenize( caps_str[ i ], " " );
+      //print(ica);
       //break;
       vector< string > cca = tokenize( costs_str[ i ], " " );
+      //print(cca);
       for( int j = 0; j < ica.size(); j++ ) {
         //printf("%lu\n\n\n", ica.size());
         vector< int > icb = sti( tokenize( ica[ j ], "," ) );
+        print(icb);
         vector< int > ccb = sti( tokenize( cca[ j ], "," ) );
+        print(ccb);
         //printf( "%s, %s, %d, %d,\n", ica[i+1].c_str(), cca[i+1].c_str(), i, j);
       }
       //printf("outter loop ye one turn\n");
