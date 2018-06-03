@@ -11,9 +11,12 @@ mei you
 #include <cstdlib>
 #include <algorithm>
 #include <iostream>
+#include <limits>
 using namespace std;
 
 const int MAXV = 50; // only 50 does not require super good algorithm to achieve the goal :) 
+const int imax = numeric_limits<int>::max();
+
 
 typedef struct {
   int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
@@ -88,32 +91,31 @@ vector< int > sti( const vector< string > &a ) {
   return oot;
 }
 
-
-//floyd
-void initialize_adjacency_matrix(adjacency_matrix *g){
-  int i, j; /* counters */
+// main algorithm used for solving the problem
+void initialize_adjacency_matrix(ADJACENCY_MATRIX *g){
+  int i, j; 
   g->nvertices =0;
   for(i =1; i<MAXV; i++)
     for(j =1; j<=MAXV; j++)
-      g->weight[i][j] =MAXINT;
+      g->weight[i][j] =imax;
 }
 
-void read_adjacency_matrix(adjacency_matrix *g, bool directed){
-  int i;      /* counter*/
-  int m;      /* number of edges */
-  int x,y,w;  /* placeholder for edge/weight */
+void read_adjacency_matrix(ADJACENCY_MATRIX *g, bool directed){
+  int i;     
+  int m;      
+  int x,y,w;  
 
   initialize_adjacency_matrix(g);
   for(i =1; i<=m; i++){
     g->weight[x][y] =w;
-    if(directed ==FALSE) g->weight[y][x] =w;
+    if(directed ==false) g->weight[y][x] =w;
   }
 }
 
-void floyd(adjacency_matrix *g){
-  int i, j;     /* dimension counters */
-  int k;        /* intermediate vertex counter */
-  int through_k;/* distance through vertex k */
+void floyd(ADJACENCY_MATRIX *g){
+  int i, j;    
+  int k;        
+  int through_k;
 
   for (k =1; k<=g->nvertices; k++)
     for(i =1; i<=g->nvertices; i++)
@@ -124,8 +126,7 @@ void floyd(adjacency_matrix *g){
       }
 }
 
-class pipe_path{
-  /*
+/*
 double ratio = 0;
   foreach(unique capacity cap){
     find the shortest path from source to sink,
@@ -137,12 +138,27 @@ double ratio = 0;
   return ratio;
 */
 
+class pipe_path{
+public:
+  double pipe_path(){
+    double ratio =0;
+    for(){
+
+    }
+
+  }
 }
 
 int main(){
 
 vector<string> caps_str= {"1,10 2,9","","1,100"};
 vector<string> costs_str= {"1,100 2,50","","1,50"};
+
+vector<int> capacity;
+vector<int> costs;
+
+memset( &capacity, 0, sizeof( capacity ) );
+memset( &costs, 0, sizeof( costs ) );
 
 ADJACENCY_MATRIX ad_M;
 memset( &ad_M, 0, sizeof( ADJACENCY_MATRIX ) );
@@ -156,13 +172,12 @@ for( int i = 0; i < caps_str.size(); i++) {
         
         //initialize value for weight matrix 
         ad_M.weight[i][icb[0]] =icb[1];
+        capacity.push_back(icb[1]);
         vector< int > ccb = sti( tokenize( cca[ j ], "," ) );
         // same thing goes with cost list
         ad_M.cost[i][ccb[0]] =ccb[1];
-        
+        costs.push_back(ccb[1]); 
         //printf("%d\n%d\n%d\n\n", i,icb[0], ad_M.weight[i][icb[0]] );
-        
-        
         //printf("%d\n\n", ad_M.weight[i][icb[0]]);
         //printf("easy easy\n\n");
         //printf("%d\n\n", ad_M.cost[i][ccb[0]]);
@@ -171,9 +186,11 @@ for( int i = 0; i < caps_str.size(); i++) {
         
       }
       
-      //printf("outter loop ye one turn\n\n");
+      //printf("outter loop another one turn\n\n");
 }
-print_matrix(&ad_M);
+//print_matrix(&ad_M);
+//print(capacity);
+print(costs);
 
 return 0;
 }
