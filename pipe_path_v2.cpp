@@ -22,12 +22,14 @@ const int imax = numeric_limits<int>::max();
 
 //this might not be needed in the future 
 typedef struct {
+
  int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
  int cost[MAXV+1][MAXV+1];
+ 
  int nvertices;   /* number of vertices in graph */
 } ADJACENCY_MATRIX;
 
-/*
+
 void print_matrix(ADJACENCY_MATRIX *a){
   
   int val;
@@ -53,7 +55,7 @@ void prints(vector<string>  str){
     cout << *i << ' ';
   }
 }
-*/
+
 
 vector< string > tokenize( string a, string b ) {
   const char *q = a.c_str();
@@ -134,7 +136,7 @@ void (ADJACENCY_MATRIX *g){
 
 //warning, change the double into int will cause segmentation fault, 
 // the reason is unknown
-void print(vector<vector<double>> dist, vector<vector<int>> next){
+void print_path(vector<vector<double>> dist, vector<vector<int>> next){
   cout<<"(pair, dist, path)"<<endl;
   const int size =next.size();
   for(int i =0; i<size; ++i){
@@ -152,6 +154,18 @@ void print(vector<vector<double>> dist, vector<vector<int>> next){
         } while(u !=v);
         cout<<path.str()<< ")"<<endl;
       }
+    }
+  }
+}
+
+void print_2d(vector<vector<int>> v ){
+
+  for(const auto &row: v){
+    for(const auto &col: row){
+      cout<<col<<' ';
+      cout<<endl;
+
+      printf("\n\n\n");
     }
   }
 }
@@ -187,7 +201,7 @@ void solve(vector<vector<int>> w_s, const int num_vertices) {
       }
     }
   }
-  print(dist, next);
+  print_path(dist, next);
 }
 
 
@@ -201,8 +215,6 @@ double ratio = 0;
     }
   }
   return ratio;
-
-
 
 class pipe_path{
 public:
@@ -220,7 +232,7 @@ public:
 */
 
 int main(){
-/*
+
 vector<string> caps_str= {"1,10 2,9","","1,100"};
 vector<string> costs_str= {"1,100 2,50","","1,50"};
 
@@ -231,7 +243,14 @@ memset( &capacity, 0, sizeof( capacity ) );
 memset( &costs, 0, sizeof( costs ) );
 
 ADJACENCY_MATRIX ad_M;
+
 memset( &ad_M, 0, sizeof( ADJACENCY_MATRIX ) );
+//vector<vector<int>> *dist =&ad_M.dist;
+
+
+vector<std::vector<int> > dist(
+    3,
+    vector<int>(3)); 
 
 for( int i = 0; i < caps_str.size(); i++) {
       vector< string > ica = tokenize( caps_str[ i ], " " );      
@@ -245,7 +264,16 @@ for( int i = 0; i < caps_str.size(); i++) {
         capacity.push_back(icb[1]);
         vector< int > ccb = sti( tokenize( cca[ j ], "," ) );
         // same thing goes with cost list
-        ad_M.cost[i][ccb[0]] =ccb[1];
+
+
+        //ad_M.cost[i][ccb[0]] =ccb[1];
+
+        
+        //(*dist)[i][ccb[0]] =ccb[1];
+        dist[i][ccb[0]] =ccb[1];
+
+        printf("I dont think I was here");
+
         costs.push_back(ccb[1]); 
         //printf("%d\n%d\n%d\n\n", i,icb[0], ad_M.weight[i][icb[0]] );
         //printf("%d\n\n", ad_M.weight[i][icb[0]]);
@@ -261,8 +289,8 @@ for( int i = 0; i < caps_str.size(); i++) {
 //print_matrix(&ad_M);
 //print(capacity);
 //print(costs);
+print_2d(dist);
 
-*/
 //testing Floyd-Warshall algorithm
 vector<vector<int>> w = {
   { 1, 3, -2 },
@@ -273,7 +301,7 @@ vector<vector<int>> w = {
 };
 
 int num_vertices =4;
-solve(w, num_vertices);
+//solve(w, num_vertices);
 //cin.ignore();
 //cin.get();
 return 0;
