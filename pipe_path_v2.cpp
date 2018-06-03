@@ -12,6 +12,8 @@ mei you
 #include <algorithm>
 #include <iostream>
 #include <limits>
+#include <sstream>
+#include <typeinfo>
 using namespace std;
 
 const int MAXV = 50; // only 50 does not require super good algorithm to achieve the goal :) 
@@ -135,12 +137,13 @@ void (ADJACENCY_MATRIX *g){
 void solve(vector<vector<int>> w_s, const int num_vertices){
   // distance in this case is the cost of the pipe
   vector<vector<int>> dist(num_vertices);
-  for(int& dim: dist){
+  for(auto &dim: dist){
+    //cout << typeid(dim).name() << '\n\n\n\n\n\n';
     for(int i =0; i< num_vertices; ++i){
       dim.push_back(imax);
     }
   }
-  for(int &w: w_s){
+  for(auto &w: w_s){
     dist[w[0] -1][w[1] -1] =w[2];
   }
 
@@ -156,9 +159,9 @@ void solve(vector<vector<int>> w_s, const int num_vertices){
     }
   }
   //floyd_reconstruct all paths 
-  for (auto k = 0; k < num_vertices; ++k) {
-    for (auto i = 0; i < num_vertices; ++i) {
-      for (auto j = 0; j < num_vertices; ++j) {
+  for (int k = 0; k < num_vertices; ++k) {
+    for (int i = 0; i < num_vertices; ++i) {
+      for (int j = 0; j < num_vertices; ++j) {
         if (dist[i][j] > dist[i][k] + dist[k][j]) {
           dist[i][j] = dist[i][k] + dist[k][j];
           next[i][j] = next[i][k];
@@ -200,20 +203,22 @@ double ratio = 0;
   }
   return ratio;
 
-*/
+
 
 class pipe_path{
 public:
+
   double pipe_path( vector<int> *c, int source, int sink, ADJACENCY_MATRIX *a){
     double ratio =0;
     for(int x =0; x< c->size(); ++x){
       //unique capacity cap
       int value =(*c)[x];
     }
-    return 0;
+    //return 0;
     
   }
-}
+};
+*/
 
 int main(){
 
