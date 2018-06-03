@@ -27,8 +27,7 @@ typedef struct {
  int nvertices;   /* number of vertices in graph */
 } ADJACENCY_MATRIX;
 
-
-//one way to validate if it prints out the correct weight matrix for graph
+/*
 void print_matrix(ADJACENCY_MATRIX *a){
   
   int val;
@@ -54,10 +53,9 @@ void prints(vector<string>  str){
     cout << *i << ' ';
   }
 }
+*/
 
 vector< string > tokenize( string a, string b ) {
-  //printf("\n\n\n\n\n\n\n\n");
-  //printf("%s", b.c_str());
   const char *q = a.c_str();
   /*
   while( count( b.begin(), b.end(), *q ) ) {
@@ -134,49 +132,14 @@ void (ADJACENCY_MATRIX *g){
 }
 */
 
-void solve(vector<vector<int>> w_s, const int num_vertices){
-  // distance in this case is the cost of the pipe
-  vector<vector<int>> dist(num_vertices);
-  for(auto &dim: dist){
-    //cout << typeid(dim).name() << '\n\n\n\n\n\n';
-    for(int i =0; i< num_vertices; ++i){
-      dim.push_back(imax);
-    }
-  }
-  for(auto &w: w_s){
-    dist[w[0] -1][w[1] -1] =w[2];
-  }
-
-  vector<vector<int>> next(num_vertices);
-  for(int i =0; i<num_vertices; ++i){
-    for(int j =0; j<num_vertices; ++j){
-      next[i].push_back(0);
-    }
-    for(int j =0; j<num_vertices; ++j){
-      if(i !=j){
-        next[i][j] =j+1;
-      }
-    }
-  }
-  //floyd_reconstruct all paths 
-  for (int k = 0; k < num_vertices; ++k) {
-    for (int i = 0; i < num_vertices; ++i) {
-      for (int j = 0; j < num_vertices; ++j) {
-        if (dist[i][j] > dist[i][k] + dist[k][j]) {
-          dist[i][j] = dist[i][k] + dist[k][j];
-          next[i][j] = next[i][k];
-        }
-      }
-    }
-  }
-
-}
-
+//warning, change the double into int will cause segmentation fault, 
+// the reason is unknown
 void print(vector<vector<double>> dist, vector<vector<int>> next){
   cout<<"(pair, dist, path)"<<endl;
   const int size =next.size();
   for(int i =0; i<size; ++i){
     for(int j =0; j<size; ++j){
+      printf("Am I here???\n\n");
       if(i !=j){
         int u =i+1;
         int v =j+1;
@@ -192,6 +155,42 @@ void print(vector<vector<double>> dist, vector<vector<int>> next){
     }
   }
 }
+
+void solve(vector<vector<int>> w_s, const int num_vertices) {
+  vector<vector<double>> dist(num_vertices);
+  for (auto& dim : dist) {
+    for (auto i = 0; i < num_vertices; ++i) {
+      dim.push_back(INT_MAX);
+    }
+  }
+  for (auto& w : w_s) {
+    dist[w[0] - 1][w[1] - 1] = w[2];
+  }
+  vector<vector<int>> next(num_vertices);
+  for (auto i = 0; i < num_vertices; ++i) {
+    for (auto j = 0; j < num_vertices; ++j) {
+      next[i].push_back(0);
+    }
+    for (auto j = 0; j < num_vertices; ++j) {
+      if (i != j) {
+        next[i][j] = j + 1;
+      }
+    }
+  }
+  for (auto k = 0; k < num_vertices; ++k) {
+    for (auto i = 0; i < num_vertices; ++i) {
+      for (auto j = 0; j < num_vertices; ++j) {
+        if (dist[i][j] > dist[i][k] + dist[k][j]) {
+          dist[i][j] = dist[i][k] + dist[k][j];
+          next[i][j] = next[i][k];
+        }
+      }
+    }
+  }
+  print(dist, next);
+}
+
+
 /*
 double ratio = 0;
   foreach(unique capacity cap){
@@ -221,7 +220,7 @@ public:
 */
 
 int main(){
-
+/*
 vector<string> caps_str= {"1,10 2,9","","1,100"};
 vector<string> costs_str= {"1,100 2,50","","1,50"};
 
@@ -261,9 +260,24 @@ for( int i = 0; i < caps_str.size(); i++) {
 }
 //print_matrix(&ad_M);
 //print(capacity);
-print(costs);
+//print(costs);
 
+*/
+//testing Floyd-Warshall algorithm
+vector<vector<int>> w = {
+  { 1, 3, -2 },
+  { 2, 1, 4 },
+  { 2, 3, 3 },
+  { 3, 4, 2 },
+  { 4, 2, -1 },
+};
+
+int num_vertices =4;
+solve(w, num_vertices);
+//cin.ignore();
+//cin.get();
 return 0;
+
 }
 
 
