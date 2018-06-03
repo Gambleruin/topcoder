@@ -18,11 +18,13 @@ const int MAXV = 50; // only 50 does not require super good algorithm to achieve
 const int imax = numeric_limits<int>::max();
 
 
+//this might not be needed in the future 
 typedef struct {
-  int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
-  int cost[MAXV+1][MAXV+1];
-  int nvertices;   /* number of vertices in graph */
+ int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
+ int cost[MAXV+1][MAXV+1];
+ int nvertices;   /* number of vertices in graph */
 } ADJACENCY_MATRIX;
+
 
 //one way to validate if it prints out the correct weight matrix for graph
 void print_matrix(ADJACENCY_MATRIX *a){
@@ -36,6 +38,7 @@ void print_matrix(ADJACENCY_MATRIX *a){
   }
 
 }
+
 void print(vector<int>  str){
   for (auto i = str.begin(); i != str.end(); ++i){
     printf("\n wewanna know what is isis???");
@@ -91,7 +94,7 @@ vector< int > sti( const vector< string > &a ) {
   return oot;
 }
 
-// main algorithm used for solving the problem
+/*
 void initialize_adjacency_matrix(ADJACENCY_MATRIX *g){
   int i, j; 
   g->nvertices =0;
@@ -112,10 +115,12 @@ void read_adjacency_matrix(ADJACENCY_MATRIX *g, bool directed){
   }
 }
 
-void floyd(ADJACENCY_MATRIX *g){
+void (ADJACENCY_MATRIX *g){
   int i, j;    
   int k;        
   int through_k;
+
+  vector<vector<int>> next(3);
 
   for (k =1; k<=g->nvertices; k++)
     for(i =1; i<=g->nvertices; i++)
@@ -125,7 +130,65 @@ void floyd(ADJACENCY_MATRIX *g){
           g->weight[i][j] =through_k;
       }
 }
+*/
 
+void solve(vector<vector<int>> w_s, const int num_vertices){
+  // distance in this case is the cost of the pipe
+  vector<vector<int>> dist(num_vertices);
+  for(int& dim: dist){
+    for(int i =0; i< num_vertices; ++i){
+      dim.push_back(imax);
+    }
+  }
+  for(int &w: w_s){
+    dist[w[0] -1][w[1] -1] =w[2];
+  }
+
+  vector<vector<int>> next(num_vertices);
+  for(int i =0; i<num_vertices; ++i){
+    for(int j =0; j<num_vertices; ++j){
+      next[i].push_back(0);
+    }
+    for(int j =0; j<num_vertices; ++j){
+      if(i !=j){
+        next[i][j] =j+1;
+      }
+    }
+  }
+  //floyd_reconstruct all paths 
+  for (auto k = 0; k < num_vertices; ++k) {
+    for (auto i = 0; i < num_vertices; ++i) {
+      for (auto j = 0; j < num_vertices; ++j) {
+        if (dist[i][j] > dist[i][k] + dist[k][j]) {
+          dist[i][j] = dist[i][k] + dist[k][j];
+          next[i][j] = next[i][k];
+        }
+      }
+    }
+  }
+
+}
+
+void print(vector<vector<double>> dist, vector<vector<int>> next){
+  cout<<"(pair, dist, path)"<<endl;
+  const int size =next.size();
+  for(int i =0; i<size; ++i){
+    for(int j =0; j<size; ++j){
+      if(i !=j){
+        int u =i+1;
+        int v =j+1;
+        cout <<"("<<u<<"->"<<v<<", "<<dist[i][j]<<",";
+        stringstream path;
+        path<<u;
+        do{
+          u =next[u -1][v -1];
+          path <<" ->"<< u;
+        } while(u !=v);
+        cout<<path.str()<< ")"<<endl;
+      }
+    }
+  }
+}
 /*
 double ratio = 0;
   foreach(unique capacity cap){
@@ -136,16 +199,19 @@ double ratio = 0;
     }
   }
   return ratio;
+
 */
 
 class pipe_path{
 public:
-  double pipe_path(){
+  double pipe_path( vector<int> *c, int source, int sink, ADJACENCY_MATRIX *a){
     double ratio =0;
-    for(){
-
+    for(int x =0; x< c->size(); ++x){
+      //unique capacity cap
+      int value =(*c)[x];
     }
-
+    return 0;
+    
   }
 }
 
