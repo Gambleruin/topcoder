@@ -19,17 +19,6 @@ using namespace std;
 const int MAXV = 50; // only 50 does not require super good algorithm to achieve the goal :) 
 const int imax = numeric_limits<int>::max();
 
-
-//this might not be needed in the future 
-typedef struct {
-
- int weight[MAXV+1][MAXV+1];  /* adjacency/weight info */
- int cost[MAXV+1][MAXV+1];
- 
- int nvertices;   /* number of vertices in graph */
-} ADJACENCY_MATRIX;
-
-
 void print_matrix(ADJACENCY_MATRIX *a){
   
   int val;
@@ -242,9 +231,9 @@ vector<int> costs;
 memset( &capacity, 0, sizeof( capacity ) );
 memset( &costs, 0, sizeof( costs ) );
 
-ADJACENCY_MATRIX ad_M;
+//ADJACENCY_MATRIX ad_M;
 
-memset( &ad_M, 0, sizeof( ADJACENCY_MATRIX ) );
+//memset( &ad_M, 0, sizeof( ADJACENCY_MATRIX ) );
 //vector<vector<int>> *dist =&ad_M.dist;
 
 
