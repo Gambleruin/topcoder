@@ -29,7 +29,7 @@
 using namespace std; 
 
 #define REP(i,n) for((i)=0;(i)<(int)(n);(i)++) 
-#define snuke(c,itr) for(__typeof((c).begin()) itr=(c).begin();itr!=(c).end();itr++) 
+//#define snuke(c,itr) for(__typeof((c).begin()) itr=(c).begin();itr!=(c).end();itr++) 
 
 #define INF (1<<29) 
 
