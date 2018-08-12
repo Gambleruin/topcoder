@@ -38,7 +38,7 @@ https://community.topcoder.com/tc?module=Static&d1=match_editorials&d2=tccc06_on
 #include <list>
 #include <queue>
 #include <complex>
- 
+
 using namespace std;
 
 /*
@@ -80,6 +80,64 @@ using namespace std;
             }
 */
 
+typedef pair<int, int> pii;
+typedef long long ll;
+
+template<class T>
+void splitstr(const string &s, vector<T> &out)
+{
+    istringstream in(s);
+    T tmp;
+
+    out.clear();
+    while (in >> tmp)
+        out.push_back(tmp);
+}
+
+class FactoryCounting
+{
+    long long count(int n, int m, vector <string> county);
+};
+
+static ll choose(int p, int q)
+{
+    ll ans =1LL;
+    if (p <q) return 0LL;
+    for(int i =1; i<=q; i++)
+        ans =ans*(p +1- i)/i;
+    return ans;
+}
+
+static ll recurse(int a, int b, int start, int m)
+{
+    if(m ==0)
+    {
+        int bits = __builtin_popcount(a & ~b);
+        return choosen[bits];
+    }
+    else
+    {
+        ll ans =0LL;
+        for(int j =start; j +m <=K; j++)
+            ans += recurse(a &edge[j], b |(1 << j), j +1, m-1);
+        return ans;
+    }
+}
+
+long long FactoryCounting::count(int n, int m, vector <string> county)
+{
+    K =county.size();
+    memset(edge, 0, sizeof(edge));
+    for(int i =0; i<K; i++)
+        for(int j =0; j<K; j++)
+            if (county[i][j] =='Y')
+                edge[i] |=1 <<j;
+
+    for(int i =0; i<=K; i++)
+        choosen[i] =choose(i, n);
+
+    return recurse((1 << K) -1, 0, 0, m);
+}
 // computes the number of 1's in the binary code of number i.
 int ones(int n) { 
 	return n ? 1 + ones(n & (n - 1)) : 0;
