@@ -24,6 +24,7 @@ https://community.topcoder.com/tc?module=Static&d1=match_editorials&d2=tccc06_on
 #include <string>
 #include <vector>
 #include <map>
+#include <fstream>
 #include <cstdlib>
 #include <cstring>
 #include <cassert>
@@ -38,127 +39,104 @@ https://community.topcoder.com/tc?module=Static&d1=match_editorials&d2=tccc06_on
 #include <list>
 #include <queue>
 #include <complex>
-
+ 
 using namespace std;
-
-/*
-      // element cnk[i][j] contains the value C(i, j).
-        vector > cnk; 
-        // element connection[i] contains the bitmask, representing 
-        // all the factories connected to the i-th factory
-        vector connection; 
-        // computes the number of 1's in the binary code of number i.
-        int ones(int n) { return n ? 1 + ones(n & (n - 1)) : 0;} 
-        // the core method, which tries adding the current factory or skipping it.
-        long long go(int factory, int count, int assembly) { 
-            if (count == m)
-                return cnk[ones(assembly)][n];
-            if (factory >= N) 
-                return 0;
-            // move to the next factory
-            return go(factory + 1, count, assembly) + 
-                go(factory + 1, count + 1, assembly & connection[factory]); 
-// add the current factory to the list, updating the total count and connections list
-        }
-        long long count(int n, int m, vector  county) 
-            { 
-            N = county.size(); // the total number of cities
-            this.m = m; this.n = n;
-            if (m + n > N) // we definitely can not build the complex
-                return 0;
-            connection = vector(N, 0);
-            for (int i = 0; i < N; i++) for (int j = 0; j < N; j++) 
-                if (county[i][j] == 'Y') connection[i] |= (1 << j);
-            cnk= vector >(N + 1, vector(N + 1, 0));
-            for (int i = 0; i < N; i++) cnk[i][0] = 1;
-            for (int i = 1; i < N; i++) for (int j = 1; j < N; j++) 
-        cnk[i][j] = cnk[i - 1][j - 1] + cnk[i - 1][j];
-            return go(0, 0, (1 << N) - 1); 
-// start from factory 0, 
-//with total of 0 factories added to the set, 
-// with all factories "connected" to our empty set.
-            }
-*/
-
+ 
 typedef pair<int, int> pii;
 typedef long long ll;
-
+ 
 template<class T>
 void splitstr(const string &s, vector<T> &out)
 {
     istringstream in(s);
     T tmp;
-
+ 
     out.clear();
-    while (in >> tmp)
-        out.push_back(tmp);
+    while (in >> tmp) out.push_back(tmp);
 }
-
+ 
 class FactoryCounting
 {
+public:
     long long count(int n, int m, vector <string> county);
 };
-
+ 
+static int edge[32];
+static ll choosen[32];
+static int K;
+ 
 static ll choose(int p, int q)
 {
-    ll ans =1LL;
-    if (p <q) return 0LL;
-    for(int i =1; i<=q; i++)
-        ans =ans*(p +1- i)/i;
+    ll ans = 1LL;
+    if (p < q) return 0LL;
+    for (int i = 1; i <= q; i++)
+        ans = ans * (p + 1 - i) / i;
     return ans;
 }
-
+ 
 static ll recurse(int a, int b, int start, int m)
 {
-    if(m ==0)
+    if (m == 0)
     {
         int bits = __builtin_popcount(a & ~b);
         return choosen[bits];
     }
     else
     {
-        ll ans =0LL;
-        for(int j =start; j +m <=K; j++)
-            ans += recurse(a &edge[j], b |(1 << j), j +1, m-1);
+        ll ans = 0LL;
+        for (int j = start; j + m <= K; j++)
+            ans += recurse(a & edge[j], b | (1 << j), j + 1, m - 1);
         return ans;
     }
 }
-
+ 
 long long FactoryCounting::count(int n, int m, vector <string> county)
 {
-    K =county.size();
+    K = county.size();
     memset(edge, 0, sizeof(edge));
-    for(int i =0; i<K; i++)
-        for(int j =0; j<K; j++)
-            if (county[i][j] =='Y')
-                edge[i] |=1 <<j;
-
-    for(int i =0; i<=K; i++)
-        choosen[i] =choose(i, n);
-
-    return recurse((1 << K) -1, 0, 0, m);
-}
-// computes the number of 1's in the binary code of number i.
-int ones(int n) { 
-	return n ? 1 + ones(n & (n - 1)) : 0;
-} 
-
-template<class T>
-void splitstr(const string &s, vector<T> &out){
-	istringstream in(s);
-	T tmp;
-
-	out.clear();
-	while(in >>tmp)
-		out.push_back(tmp);
-
+    for (int i = 0; i < K; i++)
+        for (int j = 0; j < K; j++)
+            if (county[i][j] == 'Y')
+                edge[i] |= 1 << j;
+ 
+    for (int i = 0; i <= K; i++)
+        choosen[i] = choose(i, n);
+ 
+    return recurse((1 << K) - 1, 0, 0, m);
 }
 
-class FactoryCounting
+vector<string> readFileToVector(const string& filename)
 {
-public:
-	long long count(int n, int m, vector <string> county);
-};
+    ifstream source;
+    source.open(filename);
+    vector<string> lines;
+    string line;
+    while (getline(source, line))
+    {
+        lines.push_back(line);
+    }
+    return lines;
+}
+
+int main(int argc, char* argv[]){
+
+    if(argc != 2){
+        cerr << "error! Usage: "<< argv[0]
+            << "input.txt" <<endl;
+        return 1;
+    }
+
+    string f(argv[1]);
+    vector<string> county = readFileToVector(f);
+    
+
+    // create class object
+    FactoryCounting fc;
+    cout <<fc.count(2, 1, county)<<"\n";
+
+    return 0;
+
+}
 
 
 
